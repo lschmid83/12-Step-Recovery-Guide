@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Custom theme attributes -->
-    <attr name="navigationBottomColor" format="reference" />
-    <attr name="navigationBottomSelectedColor" format="reference" />
-    <attr name="shareButtonColor" format="reference" />
-    <attr name="actionButtonColor" format="reference" />
-    <attr name="actionButtonIconColor" format="reference" />
-</resources>
