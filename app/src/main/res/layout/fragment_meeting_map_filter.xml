@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".ui.meetings.MeetingFilterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.audio.AudioFragment">
+
+        <TextView
+            android:id="@+id/text_filter_programs_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/programs"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/image_filter_aa_marker_label"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="-3dp"
+            android:src="@mipmap/ic_aa_marker"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_programs_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_aa_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alcoholics_anonymous"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_programs_label"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_filter_aa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_programs_label"/>
+
+        <ImageView
+            android:id="@+id/image_filter_ca_marker_label"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="-3dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_ca_marker"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_aa_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_ca_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cocaine_anonymous"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_aa_label"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_filter_ca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_aa_label"/>
+
+        <ImageView
+            android:id="@+id/image_filter_na_marker_label"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="-3dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_na_marker"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_ca_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_na_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/narcotics_anonymous"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_ca_label"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_filter_na"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_ca_label"/>
+
+        <ImageView
+            android:id="@+id/image_filter_oa_marker_label"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="-3dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_oa_marker"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_na_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_oa_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/overeaters_anonymous"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_na_label"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_filter_oa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_na_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_program_line_break"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:inputType="none"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_oa_label" />
+
+        <TextView
+            android:id="@+id/text_filter_time_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_program_line_break"/>
+
+        <TextView
+            android:id="@+id/text_filter_weekday_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/weekday"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_calendar_today_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_time_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_weekday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:text="Any day"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_time_label" />
+
+        <TextView
+            android:id="@+id/text_filter_time_line_break"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:inputType="none"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_weekday" />
+
+        <TextView
+            android:id="@+id/text_filter_distance_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/distance"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_time_line_break"/>
+
+        <TextView
+            android:id="@+id/text_filter_search_range_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_range"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_location_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_distance_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_search_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:text="3 Miles"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_distance_label" />
+
+        <TextView
+            android:id="@+id/text_filter_search_units_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/units"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="8dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_square_foot_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_search_range_label"/>
+
+        <TextView
+            android:id="@+id/text_filter_search_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:text="Miles"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_search_range_label" />
+
+        <TextView
+            android:id="@+id/text_filter_distance_line_break"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:inputType="none"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_search_units" />
+
+        <TextView
+            android:id="@+id/text_filter_accessibility_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/accessibility"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_distance_line_break"/>
+
+        <TextView
+            android:id="@+id/text_filter_wheelchair_accessibility_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wheelchair"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_wheelchair_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_accessibility_label"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_filter_wheelchair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_accessibility_label"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

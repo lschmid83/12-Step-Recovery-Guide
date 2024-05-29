@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".ui.audio.AudioFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp"
+        tools:context=".ui.audio.AudioFragment">
+
+        <TextView
+            android:id="@+id/text_sobriety_date_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sobriety_date"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="50dp"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:drawableStartCompat="@drawable/ic_cake_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/text_sobriety_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAlignment="gravity"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="50dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="13dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/text_time_sober_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/days"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="50dp"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:drawableStartCompat="@drawable/ic_time_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_sobriety_date_label"/>
+
+        <TextView
+            android:id="@+id/text_time_sober"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="50dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="13dp"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/textview_underline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_sobriety_date" />
+
+        <TextView
+            android:id="@+id/text_step_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/step"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="50dp"
+            android:enabled="false"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:drawableStartCompat="@drawable/ic_checklist_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_time_sober_label"/>
+
+        <TextView
+            android:id="@+id/text_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="50dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="13dp"
+            android:gravity="end"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_time_sober" />
+
+        <TextView
+            android:id="@+id/text_step_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="-20dp"
+            android:paddingBottom="20dp"
+            android:background="@null"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_step" />
+
+        <TextView
+            android:id="@+id/text_daily_reflection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/daily_reflection"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="20dp"
+            android:background="@null"
+            android:inputType="none"
+            android:textSize="18sp"
+            app:drawableLeftCompat="@drawable/ic_library_books_24dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_step_description" />
+
+        <TextView
+            android:id="@+id/text_thought_for_the_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/thought_for_the_day"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="20dp"
+            android:background="@null"
+            android:inputType="none"
+            android:textSize="18sp"
+            app:drawableLeftCompat="@drawable/ic_bubble_24dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_daily_reflection" />
+
+        <TextView
+            android:id="@+id/text_just_for_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/just_for_today"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="20dp"
+            android:background="@null"
+            android:layout_below="@id/text_just_for_today"
+            android:inputType="none"
+            android:textSize="18sp"
+            app:drawableLeftCompat="@drawable/ic_today_24dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_thought_for_the_day" />
+
+        <TextView
+            android:id="@+id/text_readings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/readings"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="20dp"
+            android:background="@null"
+            android:layout_below="@id/text_just_for_today"
+            android:inputType="none"
+            android:textSize="18sp"
+            app:drawableLeftCompat="@drawable/ic_menu_book_24dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_just_for_today"/>
+
+        <TextView
+            android:id="@+id/text_line_break"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="20dp"
+            android:inputType="none"
+            android:textSize="18sp"
+            android:background="@drawable/textview_underline"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_readings" />
+
+        <TextView
+            android:id="@+id/text_daily_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/daily_image"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-5dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="50dp"
+            android:layout_below="@id/text_line_break"
+            android:textSize="18sp"
+            app:drawableLeftCompat="@drawable/ic_image_24dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_line_break" />
+
+        <ImageView
+            android:id="@+id/image_daily_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="400dp"
+            android:maxHeight="400dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/daily_image"
+            android:src="@drawable/daily_image"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_daily_image" />
+
+        <TextView
+            android:id="@+id/text_daily_image_share"
+            android:layout_width="102dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:padding="6dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginRight="19dp"
+            android:drawablePadding="7dp"
+            android:textSize="19dp"
+            android:text="@string/share"
+            android:background="@drawable/textview_share"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_daily_image"
+            tools:ignore="SpUsage"
+            app:drawableStartCompat="@drawable/ic_share_24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

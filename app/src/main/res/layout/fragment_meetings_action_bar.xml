@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageButton
+        android:id="@+id/image_search_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_filter_24dp"
+        android:contentDescription="@string/search_filter" />
+
+    <ImageButton
+        android:id="@+id/image_map_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="@string/toggle_map"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/ic_location_24dp"
+        android:contentDescription="@string/toggle_map" />
+
+    <EditText
+        android:id="@+id/edittext_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_search_24dp"
+        android:background="@drawable/textview_meeting_search"
+        android:drawablePadding="5dp"
+        android:padding="8dp"
+        android:textCursorDrawable="@drawable/cursor_blue"
+        android:height="40dp"
+        android:hint="@string/search_bar_hint"
+        android:paddingStart="11dp"
+        android:paddingEnd="0dp"
+        android:layout_margin="8dp"
+        android:layout_toEndOf="@id/image_search_filter"
+        android:layout_toStartOf="@+id/image_map_view"
+        android:textSize="19dp"
+        android:textColor="@android:color/black"
+        android:autofillHints=""
+        android:inputType="text" />
+
+</RelativeLayout>

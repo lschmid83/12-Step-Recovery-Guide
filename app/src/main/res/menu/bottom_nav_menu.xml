@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/navigation_meetings"
+        android:icon="@drawable/ic_meeting_room_24dp"
+        android:title="@string/meetings" />
+
+    <item
+        android:id="@+id/navigation_audio"
+        android:icon="@drawable/ic_headphones_24dp"
+        android:title="@string/audio" />
+
+    <!--<item
+        android:id="@+id/navigation_program"
+        android:icon="@drawable/ic_checklist_24dp"
+        android:title="@string/program" />-->
+
+    <item
+        android:id="@+id/navigation_more"
+        android:icon="@drawable/ic_more_24dp"
+        android:title="@string/more" />
+
+</menu>
