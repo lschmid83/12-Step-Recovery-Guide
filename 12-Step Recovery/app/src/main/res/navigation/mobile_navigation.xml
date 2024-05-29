@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.citex.twelve_step_recovery.ui.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_daily_reflection"
+            app:destination="@id/navigation_daily_reflection" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_thought_for_the_day"
+            app:destination="@id/navigation_thought_for_the_day" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_just_for_today"
+            app:destination="@id/navigation_just_for_today" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_readings"
+            app:destination="@id/navigation_readings_index" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_daily_reflection"
+        android:name="com.citex.twelve_step_recovery.ui.home.daily_reflection.DailyReflectionFragment"
+        android:label="@string/daily_reflection"
+        tools:layout="@layout/fragment_daily_reflection" />
+
+    <fragment
+        android:id="@+id/navigation_thought_for_the_day"
+        android:name="com.citex.twelve_step_recovery.ui.home.thought_for_the_day.ThoughtForTheDayFragment"
+        android:label="@string/thought_for_the_day"
+        tools:layout="@layout/fragment_thought_for_the_day" />
+
+    <fragment
+        android:id="@+id/navigation_just_for_today"
+        android:name="com.citex.twelve_step_recovery.ui.home.just_for_today.JustForTodayFragment"
+        android:label="@string/just_for_today"
+        tools:layout="@layout/fragment_just_for_today" />
+
+    <fragment
+        android:id="@+id/navigation_readings_content_pdf"
+        android:name="com.citex.twelve_step_recovery.ui.home.readings.ReadingsContentPdfFragment"
+        android:label="@string/readings"
+        tools:layout="@layout/fragment_readings_content_pdf" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_readings_content_html"
+        android:name="com.citex.twelve_step_recovery.ui.home.readings.ReadingsContentHtmlFragment"
+        android:label="@string/readings"
+        tools:layout="@layout/fragment_readings_content_html" >
+        <action
+            android:id="@+id/action_navigation_readings_content_html_to_navigation_readings_content_pdf"
+            app:destination="@id/navigation_readings_content_pdf" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_readings_index_book"
+        android:name="com.citex.twelve_step_recovery.ui.home.readings.ReadingsIndexBookFragment"
+        android:label="@string/readings"
+        tools:layout="@layout/fragment_readings_index_book" >
+        <action
+            android:id="@+id/action_navigation_readings_index_book_to_navigation_readings_content_pdf"
+            app:destination="@id/navigation_readings_content_pdf" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_readings_index"
+        android:name="com.citex.twelve_step_recovery.ui.home.readings.ReadingsIndexFragment"
+        android:label="@string/readings"
+        tools:layout="@layout/fragment_readings_index" >
+        <action
+            android:id="@+id/action_navigation_readings_index_self"
+            app:destination="@id/navigation_readings_index" />
+        <action
+            android:id="@+id/action_navigation_readings_index_to_navigation_readings_content_pdf"
+            app:destination="@id/navigation_readings_content_pdf" />
+        <action
+            android:id="@+id/action_navigation_readings_index_to_navigation_readings_content_html"
+            app:destination="@id/navigation_readings_content_html" />
+        <action
+            android:id="@+id/action_navigation_readings_index_to_navigation_readings_index_book"
+            app:destination="@id/navigation_readings_index_book" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_meetings"
+        android:name="com.citex.twelve_step_recovery.ui.meetings.MeetingsFragment"
+        android:label="@string/meetings"
+        tools:layout="@layout/fragment_meetings" >
+        <action
+            android:id="@+id/action_navigation_meetings_to_navigation_meetings_map_filter"
+            app:destination="@id/navigation_meetings_map_filter" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_meetings_map_filter"
+        android:name="com.citex.twelve_step_recovery.ui.meetings.MeetingFilterFragment"
+        android:label="@string/meetings_map_filter"
+        tools:layout="@layout/fragment_meeting_map_filter" />
+
+    <fragment
+        android:id="@+id/navigation_audio"
+        android:name="com.citex.twelve_step_recovery.ui.audio.AudioFragment"
+        android:label="@string/audio"
+        tools:layout="@layout/fragment_audio" >
+        <action
+            android:id="@+id/action_navigation_audio_to_navigation_audio_contents"
+            app:destination="@id/navigation_audio_contents" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_audio_contents"
+        android:name="com.citex.twelve_step_recovery.ui.audio.AudioContentsFragment"
+        android:label="@string/audio"
+        tools:layout="@layout/fragment_audio_contents" >
+        <action
+            android:id="@+id/action_navigation_audio_contents_to_navigation_audio_playback"
+            app:destination="@id/navigation_audio_playback" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_audio_playback"
+        android:name="com.citex.twelve_step_recovery.ui.audio.AudioPlaybackFragment"
+        android:label="@string/audio"
+        tools:layout="@layout/fragment_audio_playback" />
+
+    <fragment
+        android:id="@+id/navigation_program"
+        android:name="com.citex.twelve_step_recovery.ui.program.ProgramFragment"
+        android:label="@string/program"
+        tools:layout="@layout/fragment_program" />
+
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.citex.twelve_step_recovery.ui.more.MoreFragment"
+        android:label="@string/more"
+        tools:layout="@layout/fragment_more" />
+</navigation>
