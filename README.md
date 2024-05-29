@@ -4,9 +4,7 @@
 
 This repository contains the source code for the Android Studio Java project.
 
-We are looking for contributors who want to help finish the app. There issue list outlines the features which still need work or have not been implemented yet.
-
-to the main project who could potentially add new features and ideas to the website. 
+We are looking for contributors who want to help finish the app. The issue list outlines the features which still need work or have not been implemented yet.
 
 Here are some screenshots of the app runnning in development mode:
 
