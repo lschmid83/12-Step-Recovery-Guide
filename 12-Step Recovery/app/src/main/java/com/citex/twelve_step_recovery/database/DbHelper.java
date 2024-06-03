@@ -43,27 +43,18 @@ public class DbHelper extends SQLiteOpenHelper {
         // Insert initial rows tables.
         Calendar calendarToday = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
-        String dailyImageDate = sdf.format(calendarToday.getTime());
-
-        final int min = 0;
-        final int max = 221;
-        final int randomDailyImageId = new Random().nextInt((max - min) + 1) + min;
 
         db.execSQL("insert into " + HomeDbContract.HomeEntry.TABLE_NAME + "(" +
                 HomeDbContract.HomeEntry._ID + "," +
                 HomeDbContract.HomeEntry.COLUMN_NAME_SOBRIETY_DATE + "," +
                 HomeDbContract.HomeEntry.COLUMN_NAME_STEP_NUMBER + "," +
                 HomeDbContract.HomeEntry.COLUMN_NAME_COUNTER_FORMAT + "," +
-                HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_DATE + "," +
-                HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_ID + "," +
                 HomeDbContract.HomeEntry.COLUMN_NAME_COUNTRY_CODE + ") " +
                 "values(" +
                 1 + "," +
                 calendarToday.getTimeInMillis() + "," +
                 1 + "," +
                 0 + "," +
-                "'" + dailyImageDate + "'," +
-                randomDailyImageId + "," +
                 "'UK')");
 
         db.execSQL("insert into " + MeetingFilterDbContract.MeetingFilterEntry.TABLE_NAME + "(" +

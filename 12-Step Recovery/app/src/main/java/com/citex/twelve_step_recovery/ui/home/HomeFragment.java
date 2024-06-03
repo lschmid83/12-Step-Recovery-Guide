@@ -53,6 +53,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 
 
@@ -72,6 +73,8 @@ public class HomeFragment extends Fragment {
     private DbHelper dbHelper;
     private int dailyImageId;
     private ImageView dailyImage;
+
+    private int TotalDailyImages = 226;
     private static final String TAG = DailyReflectionFragment.class.getName();
 
     /**
@@ -307,13 +310,10 @@ public class HomeFragment extends Fragment {
         });
 
         // Load daily image.
-        dailyImageId = getDailyImageIdDb();
+        dailyImageId = new Random().nextInt(TotalDailyImages + 1);
         String imageUri = "https://www.recoverymeetingfinder.com/daily-image/" + dailyImageId + ".jpg";
         dailyImage = view.findViewById(R.id.image_daily_image);
-        //Picasso.get().load(imageUri).transform(new RoundedCornersTransformation(20,0)).error(R.drawable.daily_image).into(dailyImage);
-        Picasso.get().load(R.drawable.daily_image).transform(new RoundedCornersTransformation(20,0)).into(dailyImage);
-
-        setShareButtonOnClickListener(view);
+        Picasso.get().load("file:///android_asset/daily-image/" + dailyImageId  + ".jpg").transform(new RoundedCornersTransformation(20,0)).into(dailyImage);
     }
 
     /**
@@ -585,91 +585,6 @@ public class HomeFragment extends Fragment {
         cursor.close();
 
         return itemIds.get(0);
-    }
-
-    /**
-     * Gets the current daily image ID and last updated date from the database. If the daily
-     * image date is equal to today return ID otherwise generate a new random image ID.
-     * @return Daily image ID.
-     */
-    private int getDailyImageIdDb() {
-
-        // Get database.
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        // Set columns to retrieve.
-        String[] projection = {
-                HomeDbContract.HomeEntry._ID,
-                HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_DATE,
-                HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_ID
-        };
-
-        // Filter results WHERE "title" = 'My Title'
-        String selection = HomeDbContract.HomeEntry._ID + " = ?";
-        String[] selectionArgs = {"1"};
-
-        // How you want the results sorted in the resulting Cursor
-        String sortOrder = HomeDbContract.HomeEntry._ID + " DESC";
-
-        Cursor cursor = db.query(
-                HomeDbContract.HomeEntry.TABLE_NAME,   // The table to query
-                projection,             // The array of columns to return (pass null to get all)
-                selection,              // The columns for the WHERE clause
-                selectionArgs,          // The values for the WHERE clause
-                null,           // don't group the rows
-                null,            // don't filter by row groups
-                sortOrder               // The sort order
-        );
-
-        List<Integer> imageIds = new ArrayList<>();
-        List<String> imageDates = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            int imageId = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_ID));
-            imageIds.add(imageId);
-
-            String imageDate = cursor.getString(
-                    cursor.getColumnIndexOrThrow(HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_DATE));
-            imageDates.add(imageDate);
-        }
-        cursor.close();
-
-        // Store daily image date from db.
-        String dailyImageDate = imageDates.get(0);
-
-        // Get today's date.
-        Calendar calendarToday = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
-        String todayDate = sdf.format(calendarToday.getTime());
-
-        // Daily image has not changed.
-        if (dailyImageDate.equals(todayDate))
-            return imageIds.get(0);
-        else {
-
-            final int min = 0;
-            final int max = 221;
-            final int randomDailyImageId = new Random().nextInt((max - min) + 1) + min;
-
-            // Update daily image id in database.
-            db = dbHelper.getWritableDatabase();
-
-            // New value for one column
-            ContentValues values = new ContentValues();
-            values.put(HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_ID, randomDailyImageId);
-            values.put(HomeDbContract.HomeEntry.COLUMN_NAME_DAILY_IMAGE_DATE, todayDate);
-
-            // Which row to update, based on the title
-            selection = HomeDbContract.HomeEntry._ID + " LIKE ?";
-            selectionArgs = new String[]{"1"};
-
-            db.update(HomeDbContract.HomeEntry.TABLE_NAME,
-                    values,
-                    selection,
-                    selectionArgs);
-
-            return randomDailyImageId;
-        }
     }
 
     /**
