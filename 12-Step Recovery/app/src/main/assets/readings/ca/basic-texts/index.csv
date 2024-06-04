@@ -1,5 +1,6 @@
 Id,Title,Filename,Book
 0,Alcoholics Anonymous Big Book (4th Edition),readings/ca/basic-texts/alcoholics-anonymous/index.csv,TRUE
-1,Twelve Steps and Twelve Traditions,readings/ca/basic-texts/twelve-steps-and-twelve-traditions/index.csv,TRUE
-2,Living Sober,readings/ca/basic-texts/living-sober/index.csv,TRUE
-3,Daily Reflections,readings/ca/basic-texts/daily-reflections/index.csv,TRUE
+1,Narcotics Anonymous Basic Text (6th Edition),readings/ca/basic-texts/narcotics-anonymous/index.csv,TRUE
+2,Twelve Steps and Twelve Traditions,readings/ca/basic-texts/twelve-steps-and-twelve-traditions/index.csv,TRUE
+3,Living Sober,readings/ca/basic-texts/living-sober/index.csv,TRUE
+4,Daily Reflections,readings/ca/basic-texts/daily-reflections/index.csv,TRUE
