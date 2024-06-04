@@ -3,13 +3,16 @@ package com.citex.twelve_step_recovery.ui.home;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,6 +57,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 
 
@@ -312,6 +316,7 @@ public class HomeFragment extends Fragment {
         // Load daily image with Picasso.
         dailyImageId = new Random().nextInt(TotalDailyImages + 1);
         dailyImage = view.findViewById(R.id.image_daily_image);
+        setShareButtonOnClickListener(dailyImage);
         Picasso.get().load("file:///android_asset/daily-image/" + dailyImageId  + ".jpg")
                 .transform(new RoundedCornersTransformation(20,0))
                 .into(dailyImage, new Callback() {
@@ -327,6 +332,45 @@ public class HomeFragment extends Fragment {
                             }
                         }
                 );
+
+        // Share daily image.
+        TextView textShare;
+        textShare = view.findViewById(R.id.text_daily_image_share);
+        setShareButtonOnClickListener(textShare);
+    }
+
+    /**
+     * Adds a OnClickListener to the share button which opens the share image intent.
+     * @param view The View for the fragment's UI.
+     */
+    private void setShareButtonOnClickListener(View view) {
+
+        view.setOnClickListener(v-> {
+            InputStream istr;
+            Bitmap bitmap = null;
+            try {
+                istr = getContext().getAssets().open("daily-image/" + dailyImageId  + ".jpg");
+                bitmap = BitmapFactory.decodeStream(istr);
+            } catch (IOException e) {
+                bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.daily_image);
+            }
+
+            Uri uri = saveImageToCache(bitmap);
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            i.setType("image/*");
+            i.putExtra(Intent.EXTRA_STREAM, uri);
+            startActivity(Intent.createChooser(i, "Share Image"));
+
+            if(getActivity() != null) {
+                List<ResolveInfo> resInfoList = getActivity().getPackageManager().queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
+                for (ResolveInfo resolveInfo : resInfoList) {
+                    String packageName = resolveInfo.activityInfo.packageName;
+                    getActivity().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+            }
+        });
     }
 
     /**
@@ -601,88 +645,26 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Adds a OnClickListener to the share button which opens the share image intent.
-     * @param view The View for the fragment's UI.
-     */
-    private void setShareButtonOnClickListener(View view) {
-
-        // Share daily reflection.
-
-        TextView textShare;
-        textShare = view.findViewById(R.id.text_daily_image_share);
-        textShare.setOnClickListener(v -> Picasso.get()
-                .load( "https://www.recoverymeetingfinder.com/daily-image/" + dailyImageId + ".jpg")
-                .into(new Target() {
-                    @Override
-                    public void onBitmapLoaded (final Bitmap bitmap, Picasso.LoadedFrom from){
-
-                        Uri uri = saveImageToAppCache(bitmap);
-
-                        Intent i = new Intent(Intent.ACTION_SEND);
-                        i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        i.setType("image/*");
-                        i.putExtra(Intent.EXTRA_STREAM, saveImageToAppCache(bitmap));
-                        startActivity(Intent.createChooser(i, "Share Image"));
-
-                        if(getActivity() != null) {
-                            List<ResolveInfo> resInfoList = getActivity().getPackageManager().queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
-                            for (ResolveInfo resolveInfo : resInfoList) {
-                                String packageName = resolveInfo.activityInfo.packageName;
-                                getActivity().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                        Log.e(TAG, Log.getStackTraceString(e));
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                    }
-                }));
-
-        /*
-        TextView textShare;
-        textShare = view.findViewById(R.id.text_daily_image_share);
-        textShare.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                // Refresh daily image.
-                dailyImageId = dailyImageId+1;
-                String imageUri = "https://www.recoverymeetingfinder.com/daily-image/" + dailyImageId + ".jpg";
-                Picasso.get().load(imageUri).transform(new RoundedCornersTransformation(20,0)).error(R.drawable.daily_image).into(dailyImage);
-
-            }
-        });*/
-    }
-
-    /**
      * Saves the image as PNG to the app's cache directory.
      * @param image Bitmap to save.
-     * @return Uri of the saved file or null.
+     * @return Uri of the saved file or null
      */
-    private Uri saveImageToAppCache(Bitmap image) {
-
+    private Uri saveImageToCache(Bitmap image) {
+        //TODO - Should be processed in another thread
+        File imagesFolder = new File(getActivity().getCacheDir(), "images");
         Uri uri = null;
-        if(getActivity() != null) {
-            File imagesFolder = new File(getActivity().getCacheDir(), "images");
-            try {
-                boolean res = imagesFolder.mkdirs();
-                if(!res) {
-                    File file = new File(imagesFolder, "shared_image.png");
+        try {
+            imagesFolder.mkdirs();
+            File file = new File(imagesFolder, "shared_image.png");
 
-                    FileOutputStream stream = new FileOutputStream(file);
-                    image.compress(Bitmap.CompressFormat.PNG, 90, stream);
-                    stream.flush();
-                    stream.close();
-                    uri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", file);
-                }
+            FileOutputStream stream = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.flush();
+            stream.close();
+            uri = FileProvider.getUriForFile(getContext(), "com.citex.twelve_step_recovery.provider", file);
 
-            } catch (IOException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
+        } catch (IOException e) {
+            Log.d(TAG, "IOException while trying to write file for sharing: " + e.getMessage());
         }
         return uri;
     }
