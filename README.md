@@ -13,3 +13,9 @@ Here are some screenshots of the app runnning in development mode:
 <img align='left' src='https://drive.google.com/uc?id=1CxvOFjjTj3Chsnuh7tPCo59j_-dzYWnw' width='135'>
 <img align='left' src='https://drive.google.com/uc?id=1FolLCsYd05dBLEfzpOIKY4PV-_BHddFR' width='135'>
 <img src='https://drive.google.com/uc?id=14LWpkYGTxzFeXYpwHZoiCNKUQHy3KNLk' width='135'>
+
+# Note
+
+If you want to work on the unfinished Meetings, Audio, Program or More fragment implementation:
+
+Uncomment the fragment you want to work on in res/layout/menu/bottom_nav_menu.xml
