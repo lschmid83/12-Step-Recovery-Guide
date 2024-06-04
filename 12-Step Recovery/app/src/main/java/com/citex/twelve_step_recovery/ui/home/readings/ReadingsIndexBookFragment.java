@@ -332,7 +332,7 @@ public class ReadingsIndexBookFragment extends Fragment implements RecyclerViewA
                                                 }
                                                 bundle.putIntArray("pages", pages);
                                             }
-                                                                                       
+
                                             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
                                             navController.navigate(R.id.action_navigation_readings_index_book_to_navigation_readings_content_pdf, bundle);
                                         }
@@ -434,6 +434,10 @@ public class ReadingsIndexBookFragment extends Fragment implements RecyclerViewA
         if(bookType.equals("alcoholics-anonymous")) {
             if (isRomanNumeral(text.toUpperCase(Locale.ROOT))) {
                 int number = romanToInteger(text.toUpperCase(Locale.ROOT));
+
+                if(number == 3 || number == 4)
+                    return false;
+
                 if (number >= 1 && number <= 32)
                     return true;
             }
@@ -450,7 +454,19 @@ public class ReadingsIndexBookFragment extends Fragment implements RecyclerViewA
         Integer pageStart = bookIndexCsv.get(0).PageStart;
         Integer pageEnd = bookIndexCsv.get(bookIndexCsv.size()-1).PageEnd;
         if(isNumeric(text)) {
+
             int number = Integer.parseInt(text);
+
+            if(bookType.equals("alcoholics-anonymous")) {
+                if(number == 167 || number == 168 || number == 170 || number == 280 ||
+                number == 432 || number == 435 || number == 436 || number == 560 )
+                    return false;
+            }
+            else if(bookType.equals("narcotics-anonymous")) {
+                if(number == 108)
+                    return false;
+            }
+
             if(number >= pageStart && number <= pageEnd)
                 return true;
         }
