@@ -6,24 +6,24 @@
         android:icon="@drawable/ic_home_24dp"
         android:title="@string/home" />
 
-    <item
+    <!--<item
         android:id="@+id/navigation_meetings"
         android:icon="@drawable/ic_meeting_room_24dp"
-        android:title="@string/meetings" />
+        android:title="@string/meetings" />-->
 
-    <item
+    <!--<item
         android:id="@+id/navigation_audio"
         android:icon="@drawable/ic_headphones_24dp"
-        android:title="@string/audio" />
+        android:title="@string/audio" />-->
 
     <!--<item
         android:id="@+id/navigation_program"
         android:icon="@drawable/ic_checklist_24dp"
         android:title="@string/program" />-->
 
-    <item
+    <!--<item
         android:id="@+id/navigation_more"
         android:icon="@drawable/ic_more_24dp"
-        android:title="@string/more" />
+        android:title="@string/more" />-->
 
 </menu>
