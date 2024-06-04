@@ -3,3 +3,4 @@ Id,Title,Filename,Book
 1,Cocaine Anonymous,readings/ca/index.csv,FALSE
 2,Narcotics Anonymous,readings/na/index.csv,FALSE
 3,Overeaters Anonymous,readings/oa/index.csv,FALSE
+4,Copyright Notice,readings/copyright-notice.html,FALSE
