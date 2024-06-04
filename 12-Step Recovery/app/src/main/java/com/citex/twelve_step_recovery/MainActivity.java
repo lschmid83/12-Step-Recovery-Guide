@@ -48,6 +48,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        AudioPlaybackFragment.player.onDestroy();
     }
 }

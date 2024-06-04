@@ -77,7 +77,6 @@ public class HomeFragment extends Fragment {
     private DbHelper dbHelper;
     private int dailyImageId;
     private ImageView dailyImage;
-
     private int TotalDailyImages = 226;
     private static final String TAG = DailyReflectionFragment.class.getName();
 
