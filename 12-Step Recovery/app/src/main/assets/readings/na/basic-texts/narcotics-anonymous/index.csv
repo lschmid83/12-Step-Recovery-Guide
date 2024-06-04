@@ -1,8 +1,8 @@
 Id,Title,Filename,PageStart,PageEnd,PageStartPdf,PageEndPdf,SplitBook
 0,"Front Cover
-p. 1",http://209.237.176.45/pdf/litfiles/us_english/Books/BT6E_Webposting.pdf,1,1,1,1,TRUE
+p. i",http://209.237.176.45/pdf/litfiles/us_english/Books/BT6E_Webposting.pdf,1,1,1,1,TRUE
 1,"Title Page and Copyright
-p. 2-4",http://209.237.176.45/pdf/litfiles/us_english/Books/BT6E_Webposting.pdf,2,4,3,5,TRUE
+p. ii-iv",http://209.237.176.45/pdf/litfiles/us_english/Books/BT6E_Webposting.pdf,2,4,3,5,TRUE
 2,"Table of Contents
 p. v-xiii",http://209.237.176.45/pdf/litfiles/us_english/Books/BT6E_Webposting.pdf,5,13,6,14,TRUE
 3,"Our Symbol

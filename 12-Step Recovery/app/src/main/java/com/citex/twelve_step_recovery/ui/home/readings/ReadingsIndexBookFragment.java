@@ -187,7 +187,7 @@ public class ReadingsIndexBookFragment extends Fragment implements RecyclerViewA
             }
             else {
                 for (int i = 0; i < bookIndexCsv.size(); i++) {
-                    if (i == position - 9)
+                    if (i == position - 7)
                         bookIndex = bookIndexCsv.get(i);
                 }
             }
@@ -322,6 +322,17 @@ public class ReadingsIndexBookFragment extends Fragment implements RecyclerViewA
                                             bundle.putString("indexFilename", bookIndex.Filename);
                                             bundle.putInt("pageOffset", pageNumberOffset);
 
+                                            // Specify pages to open in complete book.
+                                            if(bookIndex.SplitBook) {
+                                                int [] pages = new int[(bookIndex.PageEndPdf - bookIndex.PageStartPdf) + 1];
+                                                int c = 0;
+                                                for (int a = bookIndex.PageStartPdf - 1; a < bookIndex.PageEndPdf; a++) {
+                                                    pages[c] = a;
+                                                    c++;
+                                                }
+                                                bundle.putIntArray("pages", pages);
+                                            }
+                                                                                       
                                             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
                                             navController.navigate(R.id.action_navigation_readings_index_book_to_navigation_readings_content_pdf, bundle);
                                         }
