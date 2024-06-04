@@ -90,11 +90,14 @@ public class ReadingsIndexBookFragment extends Fragment implements RecyclerViewA
             String indexFilename = getArguments().getString("indexFilename");
 
             // Fragment has different options depending on book type.
-            // AA has separate index for foreword in roman numerals
+            // AA and NA has separate index for foreword in roman numerals and missing pages
+            // 12 & 12 has missing pages
             if(indexFilename.contains("alcoholics-anonymous"))
                 bookType = "alcoholics-anonymous";
             else if (indexFilename.contains("narcotics-anonymous"))
                 bookType = "narcotics-anonymous";
+            else if(indexFilename.contains(("twelve-steps-and-twelve-traditions")))
+                bookType = "twelve-steps-and-twelve-traditions";
 
             AssetManager assetManager = getActivity().getAssets();
             InputStream csvInputStream = assetManager.open(indexFilename);
@@ -464,6 +467,10 @@ public class ReadingsIndexBookFragment extends Fragment implements RecyclerViewA
             }
             else if(bookType.equals("narcotics-anonymous")) {
                 if(number == 108)
+                    return false;
+            }
+            else if(bookType.equals("twelve-steps-and-twelve-traditions")) {
+                if(number == 2 || number == 3 || number == 4)
                     return false;
             }
 
