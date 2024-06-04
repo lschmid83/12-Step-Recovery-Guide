@@ -42,6 +42,7 @@ import com.citex.twelve_step_recovery.database.DbHelper;
 import com.citex.twelve_step_recovery.databinding.FragmentHomeBinding;
 import com.citex.twelve_step_recovery.ui.home.daily_reflection.DailyReflectionFragment;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -53,7 +54,6 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 
 
@@ -309,11 +309,24 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Load daily image.
+        // Load daily image with Picasso.
         dailyImageId = new Random().nextInt(TotalDailyImages + 1);
-        String imageUri = "https://www.recoverymeetingfinder.com/daily-image/" + dailyImageId + ".jpg";
         dailyImage = view.findViewById(R.id.image_daily_image);
-        Picasso.get().load("file:///android_asset/daily-image/" + dailyImageId  + ".jpg").transform(new RoundedCornersTransformation(20,0)).into(dailyImage);
+        Picasso.get().load("file:///android_asset/daily-image/" + dailyImageId  + ".jpg")
+                .transform(new RoundedCornersTransformation(20,0))
+                .into(dailyImage, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                //Success image already loaded into the view
+                            }
+                            @Override
+                            public void onError(Exception e) {
+                                Picasso.get().load(R.drawable.daily_image)
+                                        .transform(new RoundedCornersTransformation(20,0))
+                                        .into(dailyImage);
+                            }
+                        }
+                );
     }
 
     /**
