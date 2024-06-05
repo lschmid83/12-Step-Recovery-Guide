@@ -172,99 +172,34 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         // Display DatePicker dialog on sobriety date click.
-        TextView textSobrietyDate;
-        textSobrietyDate = view.findViewById(R.id.text_sobriety_date);
+        TextView textSobrietyDateLabel = view.findViewById(R.id.text_sobriety_date_label );
+        textSobrietyDateLabel.setOnClickListener(v -> {
+            DisplaySetSobrietyDatePicker();
+        });
+        TextView textSobrietyDate= view.findViewById(R.id.text_sobriety_date);
         textSobrietyDate.setOnClickListener(v -> {
-
-            // Set DateSet listener.
-            DatePickerDialog.OnDateSetListener dateSetCallback = (view1, year, month, day) -> {
-
-                // Initialize the Calendar with the date set in dialog.
-                Calendar calendarSobrietyDate = Calendar.getInstance();
-                calendarSobrietyDate.set(Calendar.YEAR, year);
-                calendarSobrietyDate.set(Calendar.MONTH, month);
-                calendarSobrietyDate.set(Calendar.DAY_OF_MONTH, day);
-
-                // Set sobriety date.
-                setSobrietyDateDb(calendarSobrietyDate.getTime());
-
-                // Set ViewModel.
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", Locale.UK);
-                homeViewModel.setSobrietyDate(sdf.format(calendarSobrietyDate.getTime()));
-
-                // Set days sober.
-                SpannableString timeSober = calculateTimeSober(calendarSobrietyDate.getTime());
-                homeViewModel.setTimeSober(timeSober);
-            };
-
-            // Get sobriety date from database.
-            Date databaseSobrietyDate = getSobrietyDateDb();
-
-            // Initialize calendar with sobriety date.
-            Calendar calendarToday = Calendar.getInstance();
-            calendarToday.setTime(databaseSobrietyDate);
-            int year = calendarToday.get(Calendar.YEAR);
-            int month = calendarToday.get(Calendar.MONTH);
-            int day = calendarToday.get(Calendar.DAY_OF_MONTH);
-            new DatePickerDialog(getActivity(), dateSetCallback, year, month, day).show();
+            DisplaySetSobrietyDatePicker();
         });
 
         // Display format picker on days sober click.
-        TextView textDaysSober;
-        textDaysSober = view.findViewById(R.id.text_time_sober);
-        if(getActivity() != null) {
+        TextView textDaysSoberLabel = view.findViewById(R.id.text_time_sober_label);
+        textDaysSoberLabel.setOnClickListener(v -> {
+            DisplayTimeSoberFormatDialog();
+        });
+        TextView textDaysSober = view.findViewById(R.id.text_time_sober);
+        textDaysSober.setOnClickListener(v -> {
+            DisplayTimeSoberFormatDialog();
+        });
 
-            textDaysSober.setOnClickListener(v -> new MaterialDialog.Builder(getActivity())
-                    .items(new String[]{"Days", "Years"})
-                    .itemsCallback((dialog, view12, selection, text) -> {
-
-                        // Set counter format ID in database.
-                        setCounterFormatDb(selection);
-
-                        // Set time sober label.
-                        if (selection == 0) {
-                            homeViewModel.setTimeSoberLabel("Days");
-                        } else if (selection == 1) {
-                            homeViewModel.setTimeSoberLabel("Years");
-                        }
-
-                        // Update time sober counter with formatting.
-                        Date sobrietyDate = getSobrietyDateDb();
-                        SpannableString timeSober = calculateTimeSober(sobrietyDate);
-                        homeViewModel.setTimeSober(timeSober);
-
-                    }).itemsGravity(GravityEnum.CENTER)
-                    .titleGravity(GravityEnum.CENTER)
-                    .show());
-        }
 
         // Display number picker on step click.
-        TextView textStep;
-        textStep = view.findViewById(R.id.text_step);
+        TextView textStepLabel = view.findViewById(R.id.text_step_label);
+        textStepLabel.setOnClickListener(v -> {
+            DisplayStepPickerDialog();
+        });
+        TextView textStep = view.findViewById(R.id.text_step);
         textStep.setOnClickListener(v -> {
-
-            // Show 12-step picker dialog.
-            HomeStepNumberPickerDialog dialogStepNumberPicker = new HomeStepNumberPickerDialog();
-            if (getActivity() != null) {
-
-                // Set default value.
-                Bundle args = new Bundle();
-                args.putInt("default_value", getStepDb());
-                dialogStepNumberPicker.setArguments(args);
-
-                dialogStepNumberPicker.show(getActivity().getSupportFragmentManager(), "Step Picker");
-            }
-
-            // Set OnValueChanged listener.
-            dialogStepNumberPicker.setValueChangeListener((numberPicker, i, i1) -> {
-
-                // Set step in database.
-                setStepDb(i);
-
-                // Set ViewModel.
-                homeViewModel.setStepDescription(getStepDescription(i));
-                homeViewModel.setStep(String.valueOf(i));
-            });
+            DisplayStepPickerDialog();
         });
 
         // Display DailyReflectionFragment.
@@ -336,6 +271,102 @@ public class HomeFragment extends Fragment {
         TextView textShare;
         textShare = view.findViewById(R.id.text_daily_image_share);
         setShareButtonOnClickListener(textShare);
+    }
+
+    /**
+     * Displays the set sobriety date picker.
+     */
+    public void DisplaySetSobrietyDatePicker() {
+
+        // Set DateSet listener.
+        DatePickerDialog.OnDateSetListener dateSetCallback = (view1, year, month, day) -> {
+
+            // Initialize the Calendar with the date set in dialog.
+            Calendar calendarSobrietyDate = Calendar.getInstance();
+            calendarSobrietyDate.set(Calendar.YEAR, year);
+            calendarSobrietyDate.set(Calendar.MONTH, month);
+            calendarSobrietyDate.set(Calendar.DAY_OF_MONTH, day);
+
+            // Set sobriety date.
+            setSobrietyDateDb(calendarSobrietyDate.getTime());
+
+            // Set ViewModel.
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", Locale.UK);
+            homeViewModel.setSobrietyDate(sdf.format(calendarSobrietyDate.getTime()));
+
+            // Set days sober.
+            SpannableString timeSober = calculateTimeSober(calendarSobrietyDate.getTime());
+            homeViewModel.setTimeSober(timeSober);
+        };
+
+        // Get sobriety date from database.
+        Date databaseSobrietyDate = getSobrietyDateDb();
+
+        // Initialize calendar with sobriety date.
+        Calendar calendarToday = Calendar.getInstance();
+        calendarToday.setTime(databaseSobrietyDate);
+        int year = calendarToday.get(Calendar.YEAR);
+        int month = calendarToday.get(Calendar.MONTH);
+        int day = calendarToday.get(Calendar.DAY_OF_MONTH);
+        new DatePickerDialog(getActivity(), dateSetCallback, year, month, day).show();
+    }
+
+    /**
+     * Displays the time sober days or years format dialog.
+     */
+    public void DisplayTimeSoberFormatDialog() {
+
+        new MaterialDialog.Builder(getActivity())
+                .items(new String[]{"Days", "Years"})
+                .itemsCallback((dialog, view12, selection, text) -> {
+
+                    // Set counter format ID in database.
+                    setCounterFormatDb(selection);
+
+                    // Set time sober label.
+                    if (selection == 0) {
+                        homeViewModel.setTimeSoberLabel("Days");
+                    } else if (selection == 1) {
+                        homeViewModel.setTimeSoberLabel("Years");
+                    }
+
+                    // Update time sober counter with formatting.
+                    Date sobrietyDate = getSobrietyDateDb();
+                    SpannableString timeSober = calculateTimeSober(sobrietyDate);
+                    homeViewModel.setTimeSober(timeSober);
+
+                }).itemsGravity(GravityEnum.CENTER)
+                .titleGravity(GravityEnum.CENTER)
+                .show();
+    }
+
+
+    /**
+     * Displays the select step dialog.
+     */
+    public void DisplayStepPickerDialog() {
+        // Show 12-step picker dialog.
+        HomeStepNumberPickerDialog dialogStepNumberPicker = new HomeStepNumberPickerDialog();
+        if (getActivity() != null) {
+
+            // Set default value.
+            Bundle args = new Bundle();
+            args.putInt("default_value", getStepDb());
+            dialogStepNumberPicker.setArguments(args);
+
+            dialogStepNumberPicker.show(getActivity().getSupportFragmentManager(), "Step Picker");
+        }
+
+        // Set OnValueChanged listener.
+        dialogStepNumberPicker.setValueChangeListener((numberPicker, i, i1) -> {
+
+            // Set step in database.
+            setStepDb(i);
+
+            // Set ViewModel.
+            homeViewModel.setStepDescription(getStepDescription(i));
+            homeViewModel.setStep(String.valueOf(i));
+        });
     }
 
     /**

@@ -89,7 +89,6 @@
             android:layout_marginRight="16dp"
             android:drawablePadding="10dp"
             android:paddingBottom="50dp"
-            android:enabled="false"
             android:textSize="18sp"
             android:background="@drawable/textview_underline"
             app:drawableStartCompat="@drawable/ic_checklist_24dp"
