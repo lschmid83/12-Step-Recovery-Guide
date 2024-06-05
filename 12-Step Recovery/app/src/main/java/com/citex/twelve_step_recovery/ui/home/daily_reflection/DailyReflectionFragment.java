@@ -13,6 +13,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.citex.twelve_step_recovery.MainActivity;
 import com.citex.twelve_step_recovery.R;
 
@@ -22,7 +27,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.citex.twelve_step_recovery.databinding.FragmentDailyReflectionBinding;
 import com.citex.twelve_step_recovery.exceptions.ResourceUnavailableException;
+import com.citex.twelve_step_recovery.ui.home.thought_for_the_day.ThoughtForTheDayModel;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -122,109 +130,142 @@ public class DailyReflectionFragment extends Fragment {
      */
     private void setDailyReflection(View view)  {
 
-        // Request daily reflection webpage.
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
+        // Get todays month and day
+        Calendar calendarToday = Calendar.getInstance();
+        int month = calendarToday.get(Calendar.MONTH) + 1;
+        int day = calendarToday.get(Calendar.DAY_OF_MONTH);
 
-            // Get daily reflection
-            DailyReflectionModel dailyReflectionModel = null;
-            String errorMessage = null;
-            try {
-                // Connect to aa.org daily reflection page.
-                Document doc = Jsoup.connect("https://www.aa.org/pages/en_US/daily-reflection").get();
+        String url = "https://www.aa.org/api/reflections/" + month + "/" + day;
+        if(getActivity()!= null) {
 
-                // Create model.
-                dailyReflectionModel = new DailyReflectionModel();
-                Calendar calendar = Calendar.getInstance();
-                Date dateTime = calendar.getTime();
-                dailyReflectionModel.Date = new SimpleDateFormat("EEEE, MMMM dd", Locale.ENGLISH).format(dateTime.getTime());
-                dailyReflectionModel.HeaderTitle = doc.getElementsByClass("field--name-title").text().trim();
+            // Request daily reflection API method using Volley.
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.GET, url, null, response -> {
 
-                // Select first "field--name-body" class element.
-                Element element = doc.getElementsByClass("field--name-body").first();
+                        // Find progress layout.
+                        ConstraintLayout progressLayout;
+                        progressLayout = view.findViewById(R.id.progress_layout);
 
-                // Select <p> elements.
-                Elements elements = element.select("p");
+                        // Hide progress layout.
+                        progressLayout.setVisibility(View.GONE);
 
-                dailyReflectionModel.HeaderContent = elements.get(0).text().trim();
-                dailyReflectionModel.ContentTitle = elements.get(1).text().trim();
+                        try {
 
-                // Create string array to number of <p> elements.
-                String [] content = new String[elements.size() - 2];
+                            DailyReflectionModel dailyReflectionModel = ParseDailyReflection(response);
+                            dailyReflectionViewModel.setDate(dailyReflectionModel.Date);
+                            dailyReflectionViewModel.setHeaderTitle(dailyReflectionModel.HeaderTitle);
+                            dailyReflectionViewModel.setHeaderContent(dailyReflectionModel.HeaderContent);
+                            dailyReflectionViewModel.setContentTitle(dailyReflectionModel.ContentTitle);
+                            dailyReflectionViewModel.setContent(dailyReflectionModel.Content);
+                            dailyReflectionViewModel.setCopyright(dailyReflectionModel.Copyright);
 
-                // Initialize content array.
-                for(int i = 0; i < elements.size() - 2; i++) {
-                    content[i] = elements.get(i + 2).text().trim();
-                }
+                            // Find daily reflection layout.
+                            ConstraintLayout dailyReflectionLayout;
+                            dailyReflectionLayout = view.findViewById(R.id.daily_reflection_layout);
 
-                // Add content to full string with line breaks.
-                StringBuilder contentFull = new StringBuilder();
-                for(int i = 0; i < content.length; i++)
-                {
-                    if(i > 0 && !content[i-1].equals(""))
-                        contentFull.append("\r\n\r\n");
+                            // Show daily reflection layout.
+                            dailyReflectionLayout.setVisibility(View.VISIBLE);
 
-                    if(!content[i].equals("")) {
-                        contentFull.append(content[i]);
-                    }
-                }
 
-                dailyReflectionModel.Content = contentFull.toString().trim();
-                dailyReflectionModel.Copyright = doc.getElementsByClass("copyright-block").text();
+                        } catch (Exception e) {
 
-                // Through ResourceUnavailableException if data is missing.
-                if(TextUtils.isEmpty(dailyReflectionModel.Date) || TextUtils.isEmpty(dailyReflectionModel.HeaderTitle) ||
-                        TextUtils.isEmpty(dailyReflectionModel.HeaderContent) || TextUtils.isEmpty(dailyReflectionModel.ContentTitle) ||
-                        TextUtils.isEmpty(dailyReflectionModel.Content) || TextUtils.isEmpty(dailyReflectionModel.Copyright)) {
-                    throw new ResourceUnavailableException();
-                }
+                            Log.e(TAG, Log.getStackTraceString(e));
 
-            } catch(ResourceUnavailableException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-                errorMessage = getResources().getString(R.string.resource_unavailable);
-            } catch (Exception e) {
-                errorMessage = getResources().getString(R.string.no_network);
-            }
+                            // Display error message.
+                            TextView textError;
+                            textError = view.findViewById(R.id.text_error);
+                            textError.setText(getResources().getString(R.string.resource_unavailable));
+                            textError.setVisibility(View.VISIBLE);
+                        }
 
-            DailyReflectionModel finalDailyReflectionModel = dailyReflectionModel;
-            String finalErrorMessage = errorMessage;
-            handler.post(() -> {
+                    }, error -> {
 
-                // Find progress layout.
-                ConstraintLayout progressLayout;
-                progressLayout = view.findViewById(R.id.progress_layout);
+                        // Find progress layout.
+                        ConstraintLayout progressLayout;
+                        progressLayout = view.findViewById(R.id.progress_layout);
 
-                // Find daily reflection layout.
-                ConstraintLayout dailyReflectionLayout;
-                dailyReflectionLayout = view.findViewById(R.id.daily_reflection_layout);
+                        // Hide progress layout.
+                        progressLayout.setVisibility(View.GONE);
 
-                // Hide progress layout.
-                progressLayout.setVisibility(View.GONE);
+                        // Display error message.
+                        TextView textError;
+                        textError = view.findViewById(R.id.text_error);
+                        textError.setText(getResources().getString(R.string.no_network));
+                        textError.setVisibility(View.VISIBLE);
+                    });
 
-                if(finalDailyReflectionModel != null) {
-
-                    // Show daily reflection layout.
-                    dailyReflectionLayout.setVisibility(View.VISIBLE);
-
-                    // Initialize ViewModel.
-                    dailyReflectionViewModel.setDate(finalDailyReflectionModel.Date);
-                    dailyReflectionViewModel.setHeaderTitle(finalDailyReflectionModel.HeaderTitle);
-                    dailyReflectionViewModel.setHeaderContent(finalDailyReflectionModel.HeaderContent);
-                    dailyReflectionViewModel.setContentTitle(finalDailyReflectionModel.ContentTitle);
-                    dailyReflectionViewModel.setContent(finalDailyReflectionModel.Content);
-                    dailyReflectionViewModel.setCopyright(finalDailyReflectionModel.Copyright);
-                }
-                else {
-                    // Display error message.
-                    TextView textError;
-                    textError = view.findViewById(R.id.text_error);
-                    textError.setText(finalErrorMessage);
-                    textError.setVisibility(View.VISIBLE);
-                }
-            });
-        });
+            requestQueue.add(jsonObjectRequest);
+        }
     }
+
+    /**
+     * Parses the JSON data containing the daily reflection into the ThoughtForTheDayModel.
+     * @param dailyReflectionJsonResponse JSON response.
+     * @return DailyReflectionModel.
+     * @throws Exception Parsing exception.
+     */
+    private DailyReflectionModel ParseDailyReflection(JSONObject dailyReflectionJsonResponse) throws Exception {
+
+        // Parse daily reflection
+        DailyReflectionModel dailyReflectionModel = null;
+        String errorMessage = null;
+
+        // Get JSON data string.
+        String data = dailyReflectionJsonResponse.getString("data");
+
+        // Convert data string to JSoup Html document.
+        Document doc = Jsoup.parse(data);
+
+        // Create model.
+        dailyReflectionModel = new DailyReflectionModel();
+        Calendar calendar = Calendar.getInstance();
+        Date dateTime = calendar.getTime();
+        dailyReflectionModel.Date = new SimpleDateFormat("EEEE, MMMM dd", Locale.ENGLISH).format(dateTime.getTime());
+        dailyReflectionModel.HeaderTitle = doc.getElementsByClass("field--name-title").text().trim();
+
+        // Select first "field--name-body" class element.
+        Element element = doc.getElementsByClass("field--name-body").first();
+
+        // Select <p> elements.
+        Elements elements = element.select("p");
+
+        dailyReflectionModel.HeaderContent = elements.get(0).text().trim();
+        dailyReflectionModel.ContentTitle = elements.get(1).text().trim();
+
+        // Create string array to number of <p> elements.
+        String [] content = new String[elements.size() - 2];
+
+        // Initialize content array.
+        for(int i = 0; i < elements.size() - 2; i++) {
+            content[i] = elements.get(i + 2).text().trim();
+        }
+
+        // Add content to full string with line breaks.
+        StringBuilder contentFull = new StringBuilder();
+        for(int i = 0; i < content.length; i++)
+        {
+            if(i > 0 && !content[i-1].equals(""))
+                contentFull.append("\r\n\r\n");
+
+            if(!content[i].equals("")) {
+                contentFull.append(content[i]);
+            }
+        }
+
+        dailyReflectionModel.Content = contentFull.toString().trim();
+        dailyReflectionModel.Copyright = doc.getElementsByClass("copyright-block").text();
+
+        // Through ResourceUnavailableException if data is missing.
+        if(TextUtils.isEmpty(dailyReflectionModel.Date) || TextUtils.isEmpty(dailyReflectionModel.HeaderTitle) ||
+                TextUtils.isEmpty(dailyReflectionModel.HeaderContent) || TextUtils.isEmpty(dailyReflectionModel.ContentTitle) ||
+                TextUtils.isEmpty(dailyReflectionModel.Content) || TextUtils.isEmpty(dailyReflectionModel.Copyright)) {
+            throw new ResourceUnavailableException();
+        }
+
+        return dailyReflectionModel;
+    }
+
 
     /**
      * Adds a OnClickListener to the share button which opens the share daily reflection intent.
