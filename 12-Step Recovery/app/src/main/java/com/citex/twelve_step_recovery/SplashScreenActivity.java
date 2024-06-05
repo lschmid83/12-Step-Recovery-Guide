@@ -16,27 +16,31 @@ import android.widget.TextView;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends Activity {
 
-    static Boolean websiteClicked = false;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
         // Show the splash screen.
         setContentView(R.layout.activity_splash_screen);
         TextView splashWebsite = findViewById(R.id.text_splash_website);
         splashWebsite.setMovementMethod(LinkMovementMethod.getInstance());
+
         splashWebsite.setOnClickListener( new View.OnClickListener()
         {
             @Override
             public void onClick( View v )
             {
+                // Open website in browser.
                 Uri uri = Uri.parse("http://www.recoverymeetingfinder.com" );
                 Intent intent = new Intent( Intent.ACTION_VIEW, uri);
                 startActivity(intent);
-                websiteClicked = true;
+
+                // Kill main application process.
+                int id= android.os.Process.myPid();
+                android.os.Process.killProcess(id);
             }
-        } );
+        });
+
+        super.onCreate(savedInstanceState);
 
         // Start application after displaying splash screen.
         new Thread(() -> {
@@ -45,12 +49,8 @@ public class SplashScreenActivity extends Activity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            if(websiteClicked == false) {
-                startApp();
-                finish();
-            }
-
+            startApp();
+            finish();
         }).start();
     }
 
