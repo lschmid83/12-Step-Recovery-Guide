@@ -46,7 +46,7 @@ public class SplashScreenActivity extends Activity {
                 e.printStackTrace();
             }
 
-            if(!websiteClicked) {
+            if(websiteClicked == false) {
                 startApp();
                 finish();
             }
