@@ -19,14 +19,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.citex.twelve_step_recovery.MainActivity;
 import com.citex.twelve_step_recovery.R;
-import com.citex.twelve_step_recovery.databinding.FragmentDailyReflectionBinding;
 import com.citex.twelve_step_recovery.databinding.FragmentJustForTodayBinding;
 import com.citex.twelve_step_recovery.exceptions.ResourceUnavailableException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -76,6 +73,9 @@ public class JustForTodayFragment extends Fragment {
         final TextView textHeaderTitle = binding.textJustForTodayHeaderTitle;
         justForTodayViewModel.getHeaderTitle().observe(getViewLifecycleOwner(), textHeaderTitle::setText);
 
+        final TextView textHeaderPage = binding.textJustForTodayHeaderPage;
+        justForTodayViewModel.getHeaderPage().observe(getViewLifecycleOwner(), textHeaderPage::setText);
+
         final TextView textHeaderContent = binding.textJustForTodayHeaderContent;
         justForTodayViewModel.getHeaderContent().observe(getViewLifecycleOwner(), textHeaderContent::setText);
 
@@ -84,6 +84,9 @@ public class JustForTodayFragment extends Fragment {
 
         final TextView textContent = binding.textJustForTodayContent;
         justForTodayViewModel.getContent().observe(getViewLifecycleOwner(), textContent::setText);
+
+        final TextView textQuote = binding.textJustForTodayQuote;
+        justForTodayViewModel.getQuote().observe(getViewLifecycleOwner(), textQuote::setText);
 
         final TextView textCopyright = binding.textJustForTodayCopyright;
         justForTodayViewModel.getCopyright().observe(getViewLifecycleOwner(), textCopyright::setText);
@@ -122,61 +125,36 @@ public class JustForTodayFragment extends Fragment {
      */
     private void setDailyReflection(View view)  {
 
-        // Request daily reflection webpage.
+        // Request Just for Today webpage.
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(() -> {
 
-            // Get daily reflection
-            JustForTodayModel dailyReflectionModel = null;
+            // Get Just for Today reading
+            JustForTodayModel justForTodayModel = null;
             String errorMessage = null;
             try {
-                // Connect to aa.org daily reflection page.
-                Document doc = Jsoup.connect("https://www.aa.org/pages/en_US/daily-reflection").get();
+                // Connect to jftna.org/jft/ just for today page.
+                Document doc = Jsoup.connect("https://www.jftna.org/jft/").get();
 
                 // Create model.
-                dailyReflectionModel = new JustForTodayModel();
+                justForTodayModel = new JustForTodayModel();
                 Calendar calendar = Calendar.getInstance();
                 Date dateTime = calendar.getTime();
-                dailyReflectionModel.Date = new SimpleDateFormat("EEEE, MMMM dd", Locale.ENGLISH).format(dateTime.getTime());
-                dailyReflectionModel.HeaderTitle = doc.getElementsByClass("field--name-title").text().trim();
+                justForTodayModel.Date = new SimpleDateFormat("EEEE, MMMM dd", Locale.ENGLISH).format(dateTime.getTime());
 
-                // Select first "field--name-body" class element.
-                Element element = doc.getElementsByClass("field--name-body").first();
-
-                // Select <p> elements.
-                Elements elements = element.select("p");
-
-                dailyReflectionModel.HeaderContent = elements.get(0).text().trim();
-                dailyReflectionModel.ContentTitle = elements.get(1).text().trim();
-
-                // Create string array to number of <p> elements.
-                String [] content = new String[elements.size() - 2];
-
-                // Initialize content array.
-                for(int i = 0; i < elements.size() - 2; i++) {
-                    content[i] = elements.get(i + 2).text().trim();
-                }
-
-                // Add content to full string with line breaks.
-                StringBuilder contentFull = new StringBuilder();
-                for(int i = 0; i < content.length; i++)
-                {
-                    if(i > 0 && !content[i-1].equals(""))
-                        contentFull.append("\r\n\r\n");
-
-                    if(!content[i].equals("")) {
-                        contentFull.append(content[i]);
-                    }
-                }
-
-                dailyReflectionModel.Content = contentFull.toString().trim();
-                dailyReflectionModel.Copyright = doc.getElementsByClass("copyright-block").text();
+                justForTodayModel.HeaderTitle = doc.getElementsByTag("td").get(1).text().trim();
+                justForTodayModel.HeaderPage = doc.getElementsByTag("td").get(2).text().trim();
+                justForTodayModel.HeaderContent = doc.getElementsByTag("td").get(3).text().trim();
+                justForTodayModel.ContentTitle = doc.getElementsByTag("td").get(4).text().trim();
+                justForTodayModel.Content = doc.getElementsByTag("td").get(5).text().trim();
+                justForTodayModel.Quote = doc.getElementsByTag("td").get(6).text().trim();
+                justForTodayModel.Copyright = doc.getElementsByTag("td").get(7).text().trim();
 
                 // Through ResourceUnavailableException if data is missing.
-                if(TextUtils.isEmpty(dailyReflectionModel.Date) || TextUtils.isEmpty(dailyReflectionModel.HeaderTitle) ||
-                        TextUtils.isEmpty(dailyReflectionModel.HeaderContent) || TextUtils.isEmpty(dailyReflectionModel.ContentTitle) ||
-                        TextUtils.isEmpty(dailyReflectionModel.Content) || TextUtils.isEmpty(dailyReflectionModel.Copyright)) {
+                if(TextUtils.isEmpty(justForTodayModel.Date) || TextUtils.isEmpty(justForTodayModel.HeaderTitle) ||  TextUtils.isEmpty(justForTodayModel.HeaderPage) ||
+                TextUtils.isEmpty(justForTodayModel.HeaderContent) || TextUtils.isEmpty(justForTodayModel.ContentTitle) ||
+                        TextUtils.isEmpty(justForTodayModel.Content) || TextUtils.isEmpty(justForTodayModel.Quote) || TextUtils.isEmpty(justForTodayModel.Copyright)) {
                     throw new ResourceUnavailableException();
                 }
 
@@ -187,7 +165,7 @@ public class JustForTodayFragment extends Fragment {
                 errorMessage = getResources().getString(R.string.no_network);
             }
 
-            JustForTodayModel finalDailyReflectionModel = dailyReflectionModel;
+            JustForTodayModel finalJustForTodayModel = justForTodayModel;
             String finalErrorMessage = errorMessage;
             handler.post(() -> {
 
@@ -202,18 +180,20 @@ public class JustForTodayFragment extends Fragment {
                 // Hide progress layout.
                 progressLayout.setVisibility(View.GONE);
 
-                if(finalDailyReflectionModel != null) {
+                if(finalJustForTodayModel != null) {
 
                     // Show daily reflection layout.
                     justForTodayLayout.setVisibility(View.VISIBLE);
 
                     // Initialize ViewModel.
-                    justForTodayViewModel.setDate(finalDailyReflectionModel.Date);
-                    justForTodayViewModel.setHeaderTitle(finalDailyReflectionModel.HeaderTitle);
-                    justForTodayViewModel.setHeaderContent(finalDailyReflectionModel.HeaderContent);
-                    justForTodayViewModel.setContentTitle(finalDailyReflectionModel.ContentTitle);
-                    justForTodayViewModel.setContent(finalDailyReflectionModel.Content);
-                    justForTodayViewModel.setCopyright(finalDailyReflectionModel.Copyright);
+                    justForTodayViewModel.setDate(finalJustForTodayModel.Date);
+                    justForTodayViewModel.setHeaderTitle(finalJustForTodayModel.HeaderTitle);
+                    justForTodayViewModel.setHeaderPage(finalJustForTodayModel.HeaderPage);
+                    justForTodayViewModel.setHeaderContent(finalJustForTodayModel.HeaderContent);
+                    justForTodayViewModel.setContentTitle(finalJustForTodayModel.ContentTitle);
+                    justForTodayViewModel.setQuote(finalJustForTodayModel.Quote);
+                    justForTodayViewModel.setContent(finalJustForTodayModel.Content);
+                    justForTodayViewModel.setCopyright(finalJustForTodayModel.Copyright);
                 }
                 else {
                     // Display error message.
