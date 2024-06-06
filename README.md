@@ -1,6 +1,6 @@
 # 12-Step Recovery
 
-12-Step Recovery is an pre-release Android companion app for recoverymeetingfinder.com. When it is finished it aims to provide 12-Step reading materials, daily quotes, reading material, motivational images, an in-person meeting map and motivational speaker tapes.
+12-Step Recovery is an Android companion app for recoverymeetingfinder.com. When it is finished it aims to provide 12-Step reading materials, daily quotes, reading material, motivational images, an in-person meeting map and motivational speaker tapes.
 
 This repository contains the source code for the Android Studio Java project.
 
