@@ -124,7 +124,7 @@ public class ThoughtForTheDayFragment extends Fragment {
         int month = calendarToday.get(Calendar.MONTH) + 1;
         int day = calendarToday.get(Calendar.DAY_OF_MONTH);
 
-        String url = "https://www.hazeldenbettyford.org/services/thoughts.svc/TodaysThoughts?date=" + year + "-" + month + "-" + day;
+        String url = "https://www.hazeldenbettyford.org/content/hbff/us/en/thought-for-the-day/jcr:content/root/container/container/thoughtdaysection." + year + "-" + month + "-" + day + ".json";
         if(getActivity()!= null) {
 
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -146,19 +146,19 @@ public class ThoughtForTheDayFragment extends Fragment {
 
                         try {
 
-                            // Find daily reflection layout.
-                            ConstraintLayout thoughtForTheDayLayout;
-                            thoughtForTheDayLayout = view.findViewById(R.id.thought_for_the_day_layout);
-
-                            // Show daily reflection layout.
-                            thoughtForTheDayLayout.setVisibility(View.VISIBLE);
-
                             ThoughtForTheDayModel thoughtForTheDayModel = ParseThoughtForTheDay(response);
                             thoughtForTheDayViewModel.setDate(thoughtForTheDayModel.Date);
                             thoughtForTheDayViewModel.setThought(thoughtForTheDayModel.Thought);
                             thoughtForTheDayViewModel.setMeditation(thoughtForTheDayModel.Meditation);
                             thoughtForTheDayViewModel.setPrayer(thoughtForTheDayModel.Prayer);
                             thoughtForTheDayViewModel.setCopyright(thoughtForTheDayModel.Copyright);
+
+                            // Find daily reflection layout.
+                            ConstraintLayout thoughtForTheDayLayout;
+                            thoughtForTheDayLayout = view.findViewById(R.id.thought_for_the_day_layout);
+
+                            // Show daily reflection layout.
+                            thoughtForTheDayLayout.setVisibility(View.VISIBLE);
 
                         } catch (Exception e) {
 
@@ -200,9 +200,10 @@ public class ThoughtForTheDayFragment extends Fragment {
     private ThoughtForTheDayModel ParseThoughtForTheDay(JSONObject thoughtForTheDayJsonResponse) throws Exception {
 
         // Parse JSON into object.
-        JSONArray jsonArray = thoughtForTheDayJsonResponse.getJSONArray("d");
+        JSONArray jsonArray = thoughtForTheDayJsonResponse.getJSONArray("data");
         JSONObject jsonObject = jsonArray.getJSONObject(0);
-        String fullThought = jsonObject.getString("FullThought");
+
+        String fullThought = jsonObject.getString("reading");
 
         // Create model.
         ThoughtForTheDayModel thoughtForTheDayModel = new ThoughtForTheDayModel();
@@ -228,7 +229,7 @@ public class ThoughtForTheDayFragment extends Fragment {
         thoughtForTheDayModel.Prayer = thoughtForTheDayModel.Prayer.replaceAll("&nbsp;", "").trim();
 
         // Parse copyright.
-        thoughtForTheDayModel.Copyright = jsonObject.getString("Copyright");
+        thoughtForTheDayModel.Copyright = jsonObject.getString("copyrightText").replaceAll("<.*?>", "");;
 
         return thoughtForTheDayModel;
     }
