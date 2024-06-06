@@ -221,9 +221,11 @@ public class JustForTodayFragment extends Fragment {
             sharingIntent.setType("text/plain");
             String shareBody = justForTodayViewModel.getDate().getValue() + "\r\n\r\n" +
                     justForTodayViewModel.getHeaderTitle().getValue()+ "\r\n\r\n" +
+                    justForTodayViewModel.getHeaderPage().getValue() +  "\r\n\r\n" +
                     justForTodayViewModel.getHeaderContent().getValue() +  "\r\n\r\n" +
                     justForTodayViewModel.getContentTitle().getValue() + "\r\n\r\n" +
                     justForTodayViewModel.getContent().getValue() +  "\r\n\r\n" +
+                    justForTodayViewModel.getQuote().getValue() +  "\r\n\r\n" +
                     justForTodayViewModel.getCopyright().getValue() + "\r\n\r\n" +
                     getResources().getString(R.string.share_link);
             sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
