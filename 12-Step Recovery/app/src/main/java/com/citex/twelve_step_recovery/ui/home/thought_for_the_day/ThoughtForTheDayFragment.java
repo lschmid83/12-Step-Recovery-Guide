@@ -2,6 +2,7 @@ package com.citex.twelve_step_recovery.ui.home.thought_for_the_day;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.citex.twelve_step_recovery.databinding.FragmentThoughtForTheDayBinding;
+import com.citex.twelve_step_recovery.exceptions.ResourceUnavailableException;
 import com.citex.twelve_step_recovery.ui.home.daily_reflection.DailyReflectionFragment;
 
 import org.json.JSONArray;
@@ -144,6 +146,7 @@ public class ThoughtForTheDayFragment extends Fragment {
                         // Hide progress layout.
                         progressLayout.setVisibility(View.GONE);
 
+                        String errorMessage = null;
                         try {
 
                             ThoughtForTheDayModel thoughtForTheDayModel = ParseThoughtForTheDay(response);
@@ -160,17 +163,23 @@ public class ThoughtForTheDayFragment extends Fragment {
                             // Show daily reflection layout.
                             thoughtForTheDayLayout.setVisibility(View.VISIBLE);
 
-                        } catch (Exception e) {
-
+                        }
+                        catch(ResourceUnavailableException e) {
                             Log.e(TAG, Log.getStackTraceString(e));
+                            errorMessage = getResources().getString(R.string.resource_unavailable);
+                        }
+                        catch (Exception e) {
+                            Log.e(TAG, Log.getStackTraceString(e));
+                            errorMessage = getResources().getString(R.string.no_network);
+                        }
 
+                        if(errorMessage != null) {
                             // Display error message.
                             TextView textError;
                             textError = view.findViewById(R.id.text_error);
-                            textError.setText(getResources().getString(R.string.resource_unavailable));
+                            textError.setText(errorMessage);
                             textError.setVisibility(View.VISIBLE);
                         }
-
                     }, error -> {
 
                         // Find progress layout.
@@ -230,6 +239,12 @@ public class ThoughtForTheDayFragment extends Fragment {
 
         // Parse copyright.
         thoughtForTheDayModel.Copyright = jsonObject.getString("copyrightText").replaceAll("<.*?>", "");;
+
+        // Through ResourceUnavailableException if data is missing.
+        if(TextUtils.isEmpty(thoughtForTheDayModel.Date) || TextUtils.isEmpty(thoughtForTheDayModel.Thought) ||  TextUtils.isEmpty(thoughtForTheDayModel.Meditation) ||
+                TextUtils.isEmpty(thoughtForTheDayModel.Prayer) || TextUtils.isEmpty(thoughtForTheDayModel.Copyright))  {
+            throw new ResourceUnavailableException();
+        }
 
         return thoughtForTheDayModel;
     }

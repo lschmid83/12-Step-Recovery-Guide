@@ -24,9 +24,10 @@
     <string name="toggle_map">Toggle Map</string>
     <string name="search_bar_hint">Enter location or postcode</string>
     <string name="fetching_daily_reflection">Fetching from aa.org</string>
+    <string name="fetching_thought_for_the_day">Fetching from hazeldenbettyford.org</string>
+    <string name="fetching_just_for_the_day">Fetching from jftna.org</string>
     <string name="no_network">Unable to connect to the internet. Check your connection and try again.</string>
     <string name="resource_unavailable">"Unable to retrieve resource. Contact support@recoverymeetingfinder.com"</string>
-    <string name="fetching_thought_for_the_day">Fetching from hazeldenbettyford.org</string>
     <string name="meditation_for_the_day">Meditation for the Day</string>
     <string name="prayer_for_the_day">Prayer for the Day</string>
     <string name="meetings_london">aa-london.com</string>
