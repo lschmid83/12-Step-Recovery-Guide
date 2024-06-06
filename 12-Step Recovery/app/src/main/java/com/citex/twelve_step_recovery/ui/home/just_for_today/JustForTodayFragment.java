@@ -70,22 +70,22 @@ public class JustForTodayFragment extends Fragment {
         // Setup ViewModel.
         justForTodayViewModel = new ViewModelProvider(this).get(JustForTodayViewModel.class);
 
-        final TextView textDate = binding.textDailyReflectionDate;
+        final TextView textDate = binding.textJustForTodayDate;
         justForTodayViewModel.getDate().observe(getViewLifecycleOwner(), textDate::setText);
 
-        final TextView textHeaderTitle = binding.textDailyReflectionHeaderTitle;
+        final TextView textHeaderTitle = binding.textJustForTodayHeaderTitle;
         justForTodayViewModel.getHeaderTitle().observe(getViewLifecycleOwner(), textHeaderTitle::setText);
 
-        final TextView textHeaderContent = binding.textDailyReflectionHeaderContent;
+        final TextView textHeaderContent = binding.textJustForTodayHeaderContent;
         justForTodayViewModel.getHeaderContent().observe(getViewLifecycleOwner(), textHeaderContent::setText);
 
-        final TextView textContentTitle = binding.textDailyReflectionContentTitle;
+        final TextView textContentTitle = binding.textJustForTodayContentTitle;
         justForTodayViewModel.getContentTitle().observe(getViewLifecycleOwner(), textContentTitle::setText);
 
-        final TextView textContent = binding.textDailyReflectionContent;
+        final TextView textContent = binding.textJustForTodayContent;
         justForTodayViewModel.getContent().observe(getViewLifecycleOwner(), textContent::setText);
 
-        final TextView textCopyright = binding.textDailyReflectionCopyright;
+        final TextView textCopyright = binding.textJustForTodayCopyright;
         justForTodayViewModel.getCopyright().observe(getViewLifecycleOwner(), textCopyright::setText);
 
         return root;
@@ -196,8 +196,8 @@ public class JustForTodayFragment extends Fragment {
                 progressLayout = view.findViewById(R.id.progress_layout);
 
                 // Find daily reflection layout.
-                ConstraintLayout dailyReflectionLayout;
-                dailyReflectionLayout = view.findViewById(R.id.daily_reflection_layout);
+                ConstraintLayout justForTodayLayout;
+                justForTodayLayout = view.findViewById(R.id.just_for_today_layout);
 
                 // Hide progress layout.
                 progressLayout.setVisibility(View.GONE);
@@ -205,7 +205,7 @@ public class JustForTodayFragment extends Fragment {
                 if(finalDailyReflectionModel != null) {
 
                     // Show daily reflection layout.
-                    dailyReflectionLayout.setVisibility(View.VISIBLE);
+                    justForTodayLayout.setVisibility(View.VISIBLE);
 
                     // Initialize ViewModel.
                     justForTodayViewModel.setDate(finalDailyReflectionModel.Date);
@@ -234,7 +234,7 @@ public class JustForTodayFragment extends Fragment {
 
         // Share daily reflection.
         TextView textShare;
-        textShare = view.findViewById(R.id.text_daily_reflection_share);
+        textShare = view.findViewById(R.id.text_just_for_today_share);
         textShare.setOnClickListener(v -> {
 
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);

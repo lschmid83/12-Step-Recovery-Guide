@@ -63,7 +63,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/daily_reflection_layout"
+            android:id="@+id/just_for_today_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -71,7 +71,7 @@
             android:paddingBottom="100dp" >
 
             <TextView
-                android:id="@+id/text_daily_reflection_date"
+                android:id="@+id/text_just_for_today_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -85,7 +85,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/text_daily_reflection_header_title"
+                android:id="@+id/text_just_for_today_header_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -95,10 +95,10 @@
                 android:drawablePadding="10dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_daily_reflection_date"/>
+                app:layout_constraintTop_toBottomOf="@id/text_just_for_today_date"/>
 
             <TextView
-                android:id="@+id/text_daily_reflection_header_content"
+                android:id="@+id/text_just_for_today_header_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -109,10 +109,10 @@
                 android:textSize="18sp"
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_daily_reflection_header_title"/>
+                app:layout_constraintTop_toBottomOf="@id/text_just_for_today_header_title"/>
 
             <TextView
-                android:id="@+id/text_daily_reflection_content_title"
+                android:id="@+id/text_just_for_today_content_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -123,10 +123,10 @@
                 android:textSize="15sp"
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_daily_reflection_header_content"/>
+                app:layout_constraintTop_toBottomOf="@id/text_just_for_today_header_content"/>
 
             <TextView
-                android:id="@+id/text_daily_reflection_content"
+                android:id="@+id/text_just_for_today_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -136,10 +136,10 @@
                 android:drawablePadding="10dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_daily_reflection_content_title"/>
+                app:layout_constraintTop_toBottomOf="@id/text_just_for_today_content_title"/>
 
             <TextView
-                android:id="@+id/text_daily_reflection_copyright"
+                android:id="@+id/text_just_for_today_copyright"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -149,10 +149,10 @@
                 android:drawablePadding="10dp"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_daily_reflection_content"/>
+                app:layout_constraintTop_toBottomOf="@id/text_just_for_today_content"/>
 
             <TextView
-                android:id="@+id/text_daily_reflection_share"
+                android:id="@+id/text_just_for_today_share"
                 android:layout_width="102dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
@@ -164,7 +164,7 @@
                 android:text="@string/share"
                 android:background="@drawable/textview_share"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_daily_reflection_copyright"
+                app:layout_constraintTop_toBottomOf="@id/text_just_for_today_copyright"
                 tools:ignore="SpUsage"
                 app:drawableStartCompat="@drawable/ic_share_24dp" />
 
