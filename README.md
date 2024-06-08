@@ -16,6 +16,6 @@ Here are some screenshots of the app runnning in development mode:
 
 # Note
 
-If you want to work on the unfinished Meetings, Audio, Program or More fragment implementation:
+If you want to work on the unfinished Meetings, Audio, Program or More fragment implementations:
 
 Uncomment the fragment you want to work on in res/layout/menu/bottom_nav_menu.xml
