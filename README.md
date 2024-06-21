@@ -14,7 +14,7 @@ Here are some screenshots of the app runnning in development mode:
 <img align='left' src='https://drive.google.com/uc?id=1FolLCsYd05dBLEfzpOIKY4PV-_BHddFR' width='135'>
 <img src='https://drive.google.com/uc?id=14LWpkYGTxzFeXYpwHZoiCNKUQHy3KNLk' width='135'>
 
-The app can be downloaded [here]([https://play.google.com/store/apps/details?id=com.citex.android.free.dragonisland&hl=en&pli=1](https://play.google.com/store/apps/details?id=com.citex.twelve_step_recovery)).
+The app can be downloaded [here](https://play.google.com/store/apps/details?id=com.citex.android.free.dragonisland&hl=en&pli=1).
 
 # Note
 
