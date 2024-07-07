@@ -41,7 +41,7 @@
         android:layout_margin="8dp"
         android:layout_toEndOf="@id/image_search_filter"
         android:layout_toStartOf="@+id/image_map_view"
-        android:textSize="19dp"
+        android:textSize="16sp"
         android:textColor="@android:color/black"
         android:autofillHints=""
         android:inputType="text" />
