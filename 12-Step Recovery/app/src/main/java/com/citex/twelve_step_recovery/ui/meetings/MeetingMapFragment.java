@@ -378,7 +378,8 @@ public class MeetingMapFragment extends Fragment {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             // Open Google map links with app.
-            if(url.contains("https://www.google.com/maps") || url.contains("sms:") || url.contains("mailto:") || url.contains("whatsapp:")) {
+            if(url.contains("https://www.google.com/maps") || url.contains("sms:") ||
+                    url.contains("mailto:") || url.contains("whatsapp:") || url.contains("https://what3words.com")) {
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(i);
             }
