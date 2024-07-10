@@ -2,6 +2,7 @@ package com.citex.twelve_step_recovery.ui.home.thought_for_the_day;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -150,11 +151,11 @@ public class ThoughtForTheDayFragment extends Fragment {
                         try {
 
                             ThoughtForTheDayModel thoughtForTheDayModel = ParseThoughtForTheDay(response);
-                            thoughtForTheDayViewModel.setDate(thoughtForTheDayModel.Date);
-                            thoughtForTheDayViewModel.setThought(thoughtForTheDayModel.Thought);
-                            thoughtForTheDayViewModel.setMeditation(thoughtForTheDayModel.Meditation);
-                            thoughtForTheDayViewModel.setPrayer(thoughtForTheDayModel.Prayer);
-                            thoughtForTheDayViewModel.setCopyright(thoughtForTheDayModel.Copyright);
+                            thoughtForTheDayViewModel.setDate(Html.fromHtml(thoughtForTheDayModel.Date).toString());
+                            thoughtForTheDayViewModel.setThought(Html.fromHtml(thoughtForTheDayModel.Thought).toString());
+                            thoughtForTheDayViewModel.setMeditation((Html.fromHtml(thoughtForTheDayModel.Meditation).toString()));
+                            thoughtForTheDayViewModel.setPrayer((Html.fromHtml(thoughtForTheDayModel.Prayer).toString()));
+                            thoughtForTheDayViewModel.setCopyright((Html.fromHtml(thoughtForTheDayModel.Copyright).toString()));
 
                             // Find daily reflection layout.
                             ConstraintLayout thoughtForTheDayLayout;

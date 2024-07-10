@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -186,14 +187,14 @@ public class JustForTodayFragment extends Fragment {
                     justForTodayLayout.setVisibility(View.VISIBLE);
 
                     // Initialize ViewModel.
-                    justForTodayViewModel.setDate(finalJustForTodayModel.Date);
-                    justForTodayViewModel.setHeaderTitle(finalJustForTodayModel.HeaderTitle);
-                    justForTodayViewModel.setHeaderPage(finalJustForTodayModel.HeaderPage);
-                    justForTodayViewModel.setHeaderContent(finalJustForTodayModel.HeaderContent);
-                    justForTodayViewModel.setContentTitle(finalJustForTodayModel.ContentTitle);
-                    justForTodayViewModel.setQuote(finalJustForTodayModel.Quote);
-                    justForTodayViewModel.setContent(finalJustForTodayModel.Content);
-                    justForTodayViewModel.setCopyright(finalJustForTodayModel.Copyright);
+                    justForTodayViewModel.setDate(Html.fromHtml(finalJustForTodayModel.Date).toString());
+                    justForTodayViewModel.setHeaderTitle(Html.fromHtml(finalJustForTodayModel.HeaderTitle).toString());
+                    justForTodayViewModel.setHeaderPage(Html.fromHtml(finalJustForTodayModel.HeaderPage).toString());
+                    justForTodayViewModel.setHeaderContent(Html.fromHtml(finalJustForTodayModel.HeaderContent).toString());
+                    justForTodayViewModel.setContentTitle(Html.fromHtml(finalJustForTodayModel.ContentTitle).toString());
+                    justForTodayViewModel.setQuote(Html.fromHtml(finalJustForTodayModel.Quote).toString());
+                    justForTodayViewModel.setContent(Html.fromHtml(finalJustForTodayModel.Content).toString());
+                    justForTodayViewModel.setCopyright(Html.fromHtml(finalJustForTodayModel.Copyright).toString());
                 }
                 else {
                     // Display error message.

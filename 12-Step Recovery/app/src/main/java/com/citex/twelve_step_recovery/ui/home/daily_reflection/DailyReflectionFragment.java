@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -153,12 +154,12 @@ public class DailyReflectionFragment extends Fragment {
                         try {
 
                             DailyReflectionModel dailyReflectionModel = ParseDailyReflection(response);
-                            dailyReflectionViewModel.setDate(dailyReflectionModel.Date);
-                            dailyReflectionViewModel.setHeaderTitle(dailyReflectionModel.HeaderTitle);
-                            dailyReflectionViewModel.setHeaderContent(dailyReflectionModel.HeaderContent);
-                            dailyReflectionViewModel.setContentTitle(dailyReflectionModel.ContentTitle);
-                            dailyReflectionViewModel.setContent(dailyReflectionModel.Content);
-                            dailyReflectionViewModel.setCopyright(dailyReflectionModel.Copyright);
+                            dailyReflectionViewModel.setDate(Html.fromHtml(dailyReflectionModel.Date).toString());
+                            dailyReflectionViewModel.setHeaderTitle(Html.fromHtml(dailyReflectionModel.HeaderTitle).toString());
+                            dailyReflectionViewModel.setHeaderContent(Html.fromHtml(dailyReflectionModel.HeaderContent).toString());
+                            dailyReflectionViewModel.setContentTitle(Html.fromHtml(dailyReflectionModel.ContentTitle).toString());
+                            dailyReflectionViewModel.setContent(Html.fromHtml(dailyReflectionModel.Content).toString());
+                            dailyReflectionViewModel.setCopyright(Html.fromHtml(dailyReflectionModel.Copyright).toString());
 
                             // Find daily reflection layout.
                             ConstraintLayout dailyReflectionLayout;
