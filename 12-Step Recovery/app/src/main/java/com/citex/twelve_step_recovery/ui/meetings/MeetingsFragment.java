@@ -37,6 +37,8 @@ public class MeetingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        getContext().getTheme().applyStyle(R.style.Theme_Meetings, true);
+
         // Initialize database.
         dbHelper = new DbHelper(getContext());
 
@@ -117,7 +119,8 @@ public class MeetingsFragment extends Fragment {
                                 mActionBar.setDisplayShowCustomEnabled(true);
 
                                 // Initialize action bar events.
-                                meetingMapFragment.initActionBar(mActionBar);
+                                if(meetingMapFragment != null)
+                                    meetingMapFragment.initActionBar(mActionBar);
                             }
                         }
                     } else if (position == 1) {
