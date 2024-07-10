@@ -76,7 +76,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 1 + "," +
                 1 + "," +
                 0 + "," + // All days
-                3 + "," +
+                5 + "," +
                 "'Miles'," +
                 0 + ")");
 
