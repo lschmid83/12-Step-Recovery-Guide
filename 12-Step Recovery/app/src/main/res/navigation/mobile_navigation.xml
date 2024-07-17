@@ -22,7 +22,16 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_readings"
             app:destination="@id/navigation_readings_index" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_declarations_content"
+            app:destination="@id/navigation_declarations_content" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_declarations_content"
+        android:name="com.citex.twelve_step_recovery.ui.home.DeclarationsContentHtmlFragment"
+        android:label="@string/more"
+        tools:layout="@layout/fragment_declarations_content_html" />
 
     <fragment
         android:id="@+id/navigation_daily_reflection"
@@ -141,4 +150,6 @@
         android:name="com.citex.twelve_step_recovery.ui.more.MoreFragment"
         android:label="@string/more"
         tools:layout="@layout/fragment_more" />
+
+
 </navigation>

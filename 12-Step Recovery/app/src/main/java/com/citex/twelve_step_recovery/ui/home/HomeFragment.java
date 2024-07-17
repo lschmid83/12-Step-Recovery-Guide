@@ -273,6 +273,26 @@ public class HomeFragment extends Fragment {
         TextView textShare;
         textShare = view.findViewById(R.id.text_daily_image_share);
         setShareButtonOnClickListener(textShare);
+
+        // Privacy policy link.
+        TextView textPrivacyLabel = view.findViewById(R.id.text_privacy_policy);
+        textPrivacyLabel.setOnClickListener(v -> {
+
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "Privacy Policy");
+            bundle.putString("indexFilename", "privacy_policy.html");
+
+            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.action_navigation_home_to_navigation_declarations_content, bundle);
+
+        });
+
+        // Health declaration link.
+        /*
+        TextView textHealthDeclaration= view.findViewById(R.id.text_health_declaration);
+        textSobrietyDate.setOnClickListener(v -> {
+
+        });*/
     }
 
     /**

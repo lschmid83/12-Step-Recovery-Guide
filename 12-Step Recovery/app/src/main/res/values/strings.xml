@@ -58,5 +58,6 @@
     <string name="accessibility">Accessibility</string>
     <string name="wheelchair">Wheelchair</string>
     <string name="share_link">Shared with 12-Step Recovery Guide. Get it on Google Play. https://play.google.com/store/apps/details?id=com.citex.twelve_step_recovery</string>
-
+    <string name="privacy_policy"><u>Privacy Policy</u></string>
+    <string name="health_declaration"><u>Health Declaration</u></string>
 </resources>
