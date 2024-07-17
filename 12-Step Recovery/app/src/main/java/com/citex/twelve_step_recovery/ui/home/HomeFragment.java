@@ -277,22 +277,36 @@ public class HomeFragment extends Fragment {
         // Privacy policy link.
         TextView textPrivacyLabel = view.findViewById(R.id.text_privacy_policy);
         textPrivacyLabel.setOnClickListener(v -> {
-
             Bundle bundle = new Bundle();
             bundle.putString("title", "Privacy Policy");
             bundle.putString("indexFilename", "privacy_policy.html");
-
             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
             navController.navigate(R.id.action_navigation_home_to_navigation_declarations_content, bundle);
-
         });
 
         // Health declaration link.
-        /*
-        TextView textHealthDeclaration= view.findViewById(R.id.text_health_declaration);
-        textSobrietyDate.setOnClickListener(v -> {
+        TextView textHealthDeclaration = view.findViewById(R.id.text_health_declaration);
+        textHealthDeclaration.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "Health Declaration");
+            bundle.putString("indexFilename", "health_declaration.html");
+            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.action_navigation_home_to_navigation_declarations_content, bundle);
+        });
 
-        });*/
+        // Website link.
+        TextView textWebsite = view.findViewById(R.id.text_website);
+        textHealthDeclaration.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.recoverymeetingfinder.com"));
+            startActivity(browserIntent);
+        });
+
+        // Email link.
+        TextView textEmail = view.findViewById(R.id.text_email);
+        textEmail.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:support@recoverymeetingfinder.com"));
+            startActivity(browserIntent);
+        });
     }
 
     /**

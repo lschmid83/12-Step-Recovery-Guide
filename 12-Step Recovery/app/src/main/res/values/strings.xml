@@ -60,4 +60,6 @@
     <string name="share_link">Shared with 12-Step Recovery Guide. Get it on Google Play. https://play.google.com/store/apps/details?id=com.citex.twelve_step_recovery</string>
     <string name="privacy_policy"><u>Privacy Policy</u></string>
     <string name="health_declaration"><u>Health Declaration</u></string>
+    <string name="app_website_link"><u>www.recoverymeetingfinder.com</u></string>
+    <string name="app_email_link"><u>support@recoverymeetingfinder.com</u></string>
 </resources>
