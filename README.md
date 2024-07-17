@@ -16,6 +16,8 @@ Here are some screenshots of the app runnning in development mode:
 
 The app can be downloaded from the Google Play store [here](https://play.google.com/store/apps/details?id=com.citex.twelve_step_recovery).
 
+You can view a demo video of the app [here](https://www.youtube.com/watch?v=hT3zR4pld-w).
+
 # Note
 
 If you want to work on the unfinished Meetings, Audio, Program or More fragment implementations:
