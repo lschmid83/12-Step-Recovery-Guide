@@ -296,7 +296,7 @@ public class HomeFragment extends Fragment {
 
         // Website link.
         TextView textWebsite = view.findViewById(R.id.text_website);
-        textHealthDeclaration.setOnClickListener(v -> {
+        textWebsite.setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.recoverymeetingfinder.com"));
             startActivity(browserIntent);
         });
