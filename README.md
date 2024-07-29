@@ -20,7 +20,7 @@ You can view a demo video of the app [here](https://www.youtube.com/watch?v=hT3z
 
 Unfortunately the latest version of the app with the meeting finder was not accepted by Google Play for Mental and Behavioural issues despite me adding a health declaration which documented all of the issues using the app relates to. Due to work time constraints I have decided to leave it unpublished and focus on my career.
 
-<img align='left' src='https://drive.google.com/uc?id=1jCqWjqZYsa1OBopxdnAtN0k8cWV6ZadE' width='135'>
+<img src='https://drive.google.com/uc?id=1jCqWjqZYsa1OBopxdnAtN0k8cWV6ZadE' width='135'>
 
 # Note
 
