@@ -78,7 +78,8 @@ public class HomeFragment extends Fragment {
     private DbHelper dbHelper;
     private int dailyImageId;
     private ImageView dailyImage;
-    private int TotalDailyImages = 226;
+    private int TotalDailyImages = 544;
+    private int DailyImageLoadCount = 0;
     private static final String TAG = DailyReflectionFragment.class.getName();
 
     /**
@@ -254,21 +255,7 @@ public class HomeFragment extends Fragment {
         dailyImageId = new Random().nextInt(TotalDailyImages + 1);
         dailyImage = view.findViewById(R.id.image_daily_image);
         setShareButtonOnClickListener(dailyImage);
-        Picasso.get().load("file:///android_asset/daily-image/" + dailyImageId  + ".jpg")
-                .transform(new RoundedCornersTransformation(20,0))
-                .into(dailyImage, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                //Success image already loaded into the view
-                            }
-                            @Override
-                            public void onError(Exception e) {
-                                Picasso.get().load(R.drawable.daily_image)
-                                        .transform(new RoundedCornersTransformation(20,0))
-                                        .into(dailyImage);
-                            }
-                        }
-                );
+        LoadDailyImage(false);
 
         // Share daily image.
         TextView textShare;
@@ -308,6 +295,39 @@ public class HomeFragment extends Fragment {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:support@recoverymeetingfinder.com"));
             startActivity(browserIntent);
         });
+    }
+
+    private void LoadDailyImage(boolean loadDefault) {
+        Picasso.get().load("file:///android_asset/daily-image/" + dailyImageId  + ".jpg")
+                .transform(new RoundedCornersTransformation(20,0))
+                .into(dailyImage, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                //Success image already loaded into the view
+                            }
+                            @Override
+                            public void onError(Exception e) {
+                                if(loadDefault) {
+                                    DailyImageLoadCount = 0;
+                                    Picasso.get().load(R.drawable.daily_image)
+                                            .transform(new RoundedCornersTransformation(20,0))
+                                            .into(dailyImage);
+                                    return;
+                                }
+
+                                DailyImageLoadCount++;
+                                if(DailyImageLoadCount < 2)
+                                {
+                                    LoadDailyImage(false);
+                                }
+                                else
+                                {
+                                    LoadDailyImage(true);
+                                }
+
+                            }
+                        }
+                );
     }
 
     /**
