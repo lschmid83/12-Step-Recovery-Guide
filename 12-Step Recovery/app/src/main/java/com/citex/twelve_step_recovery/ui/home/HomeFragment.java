@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
@@ -740,7 +741,8 @@ public class HomeFragment extends Fragment {
      * @return Country code.
      */
     private String getCountryCode() {
-        return requireActivity().getBaseContext().getResources().getConfiguration().locale.getCountry();
+        TelephonyManager tm = (TelephonyManager)this.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getNetworkCountryIso().toUpperCase();
     }
 
     /**
