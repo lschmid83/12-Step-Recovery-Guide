@@ -62,6 +62,7 @@ public class MeetingWorldwideFragment extends Fragment {
             // Enable JavaScript.
             WebSettings webSettings = webview.getSettings();
             webSettings.setJavaScriptEnabled(true);
+            webSettings.setDomStorageEnabled(true);
 
             // Fit horizontal.
             webview.getSettings().setLoadWithOverviewMode(true);
