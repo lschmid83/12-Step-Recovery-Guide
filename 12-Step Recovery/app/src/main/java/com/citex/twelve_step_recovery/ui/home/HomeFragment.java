@@ -508,7 +508,7 @@ public class HomeFragment extends Fragment {
         if (counterFormatId == 0) { // Days
             long msDiff = calendarToday.getTimeInMillis() - calendarSobrietyDate.getTimeInMillis();
             long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
-            return new SpannableString(Long.toString(daysDiff + 1));
+            return new SpannableString(Long.toString(daysDiff));
         }
         else if(counterFormatId == 1) { // Days, Months, Years
 
