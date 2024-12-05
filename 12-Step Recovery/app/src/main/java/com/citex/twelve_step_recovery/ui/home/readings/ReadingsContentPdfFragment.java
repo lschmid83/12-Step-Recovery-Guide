@@ -19,6 +19,7 @@ import com.citex.twelve_step_recovery.R;
 import com.citex.twelve_step_recovery.databinding.FragmentReadingsContentPdfBinding;
 import com.citex.twelve_step_recovery.exceptions.ResourceUnavailableException;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
@@ -118,7 +119,7 @@ public class ReadingsContentPdfFragment extends Fragment {
         mainView.findViewById(R.id.progress_layout).setVisibility(View.GONE);
 
         // Store file to external storage.
-        File file = new File(mainView.getContext().getCacheDir() + fileName);
+        File file = new File(mainView.getContext().getCacheDir() + "/" + fileName);
 
         if (file.exists()) {
 
@@ -129,12 +130,21 @@ public class ReadingsContentPdfFragment extends Fragment {
             PDFView pdfView;
             pdfView = mainView.findViewById(R.id.pdfView_reading_content);
             pdfView.fromFile(file)
+                    .onError(new OnErrorListener() {
+                        @Override
+                        public void onError(Throwable t) {
+
+                            Throwable a = t;
+                        }
+                    })
                     .pages(getArguments().getIntArray("pages"))
                     .defaultPage(getArguments().getInt("pageOffset"))
                     .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
                     .fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
                     .pageSnap(true) // snap pages to screen boundaries
                     .load();
+
+
 
         }
     }
@@ -178,7 +188,7 @@ class DownloadFileTask {
         protected String doInBackground(String... arg0) {
 
             // Check if file has already been downloaded and cached
-            File file = new File(context.getCacheDir() + fileName);
+            File file = new File(context.getCacheDir() + "/" + fileName);
             if (file.exists())
                 return "downloaded_file";
 
@@ -194,7 +204,7 @@ class DownloadFileTask {
                 InputStream input = new BufferedInputStream(_url.openStream(),
                         8192);
                 OutputStream output = new FileOutputStream(
-                        context.getCacheDir() + fileName);
+                        context.getCacheDir() + "/" + fileName);
                 byte data[] = new byte[1024];
                 long total = 0;
                 while ((count = input.read(data)) != -1) {

@@ -508,14 +508,22 @@ public class HomeFragment extends Fragment {
         if (counterFormatId == 0) { // Days
             long msDiff = calendarToday.getTimeInMillis() - calendarSobrietyDate.getTimeInMillis();
             long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
+            if(daysDiff < 0) {
+                daysDiff = 0;
+            }
             return new SpannableString(Long.toString(daysDiff));
         }
         else if(counterFormatId == 1) { // Days, Months, Years
+            int years = 0;
+            if(period.getYears() > 0)
+                years = period.getYears();
+            int months = 0;
+            if(period.getMonths() > 0)
+                months = period.getMonths();
             int days = 0;
             if(period.getDays() > 0)
                 days = period.getDays();
-
-            String timeSober = period.getYears() + "Y " + period.getMonths() + "M " + period.getDays() + "D";
+            String timeSober = years + "Y " + months + "M " + days + "D";
             SpannableString timeSoberSpan = new SpannableString(timeSober);
 
             float spanSize = 0.8f;
