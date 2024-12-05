@@ -511,6 +511,9 @@ public class HomeFragment extends Fragment {
             return new SpannableString(Long.toString(daysDiff));
         }
         else if(counterFormatId == 1) { // Days, Months, Years
+            int days = 0;
+            if(period.getDays() > 0)
+                days = period.getDays();
 
             String timeSober = period.getYears() + "Y " + period.getMonths() + "M " + period.getDays() + "D";
             SpannableString timeSoberSpan = new SpannableString(timeSober);
