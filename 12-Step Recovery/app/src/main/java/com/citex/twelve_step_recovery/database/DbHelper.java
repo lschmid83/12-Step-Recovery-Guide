@@ -23,7 +23,7 @@ import java.util.Random;
 public class DbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "rmf.db";
     private static final String TAG = DbHelper.class.getName();
     private Context context;
@@ -42,7 +42,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // Insert initial rows tables.
         Calendar calendarToday = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
 
         db.execSQL("insert into " + HomeDbContract.HomeEntry.TABLE_NAME + "(" +
                 HomeDbContract.HomeEntry._ID + "," +
@@ -76,7 +75,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 1 + "," +
                 1 + "," +
                 0 + "," + // All days
-                5 + "," +
+                1 + "," +
                 "'Miles'," +
                 0 + ")");
 
