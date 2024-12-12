@@ -23,7 +23,7 @@ import java.util.Random;
 public class DbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "rmf.db";
     private static final String TAG = DbHelper.class.getName();
     private Context context;
@@ -74,8 +74,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 1 + "," +
                 1 + "," +
                 1 + "," +
-                0 + "," + // All days
-                1 + "," +
+                0 + "," +
+                3 + "," +
                 "'Miles'," +
                 0 + ")");
 
