@@ -26,11 +26,11 @@ Uncomment the fragment you want to work on in res/layout/menu/bottom_nav_menu.xm
 
 If you have a slow internet connection or project import and gradle build is taking a long time.
 
-Download gradle build dependencies [here](https://services.gradle.org/distributions/gradle-8.9-bin.zip)
+Download gradle build dependencies [here](https://services.gradle.org/distributions/gradle-8.9-bin.zip).
 
-Place in the  `$installPath\12-Step-Recovery-Guide\12-Step Recovery\gradle\wrapper\` folder
+Place in the  `$installPath\12-Step-Recovery-Guide\12-Step Recovery\gradle\wrapper\` folder.
 
-Open Gradle Scripts\gradle-wrapper.properties
+Open Gradle Scripts\gradle-wrapper.properties.
 
 Comment out:
 
@@ -38,7 +38,7 @@ Comment out:
 // distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-bin.zip
 ```
 
-and uncomment 
+and uncomment: 
 
 ```
 distributionUrl=gradle-8.9-bin.zip
