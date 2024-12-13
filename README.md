@@ -34,10 +34,13 @@ Open Gradle Scripts\gradle-wrapper.properties
 
 Comment out:
 
+```
 // distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-bin.zip
+```
 
 and uncomment 
 
+```
 distributionUrl=gradle-8.9-bin.zip
-
+```
 
