@@ -18,8 +18,26 @@ The app can be downloaded from the Google Play store [here](https://play.google.
 
 You can view a demo video of the app [here](https://www.youtube.com/watch?v=hT3zR4pld-w).
 
-# Note
+# Notes
 
 If you want to work on the unfinished Meetings, Audio, Program or More fragment implementations:
 
 Uncomment the fragment you want to work on in res/layout/menu/bottom_nav_menu.xml
+
+If you have a slow internet connection or project import and gradle build is taking a long time.
+
+Download gradle build dependencies [here](https://services.gradle.org/distributions/gradle-8.9-bin.zip)
+
+Place in the  `$installPath\12-Step-Recovery-Guide\12-Step Recovery\gradle\wrapper\` folder
+
+Open Gradle Scripts\gradle-wrapper.properties
+
+Comment out:
+
+// distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-bin.zip
+
+and uncomment 
+
+distributionUrl=gradle-8.9-bin.zip
+
+
