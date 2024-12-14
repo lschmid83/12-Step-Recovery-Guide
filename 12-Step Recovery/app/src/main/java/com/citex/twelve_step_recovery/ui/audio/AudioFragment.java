@@ -120,7 +120,8 @@ public class AudioFragment extends Fragment implements RecyclerViewAdapter.ItemC
             if(audio != null) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString("audioTitle", audio[2]);
+                bundle.putString("audioArtist", audio[1]);
+                bundle.putString("audioAlbum", audio[2]);
                 bundle.putString("audioContentsFilename", audio[3]);
                 bundle.putString("audioImage", audio[4]);
 

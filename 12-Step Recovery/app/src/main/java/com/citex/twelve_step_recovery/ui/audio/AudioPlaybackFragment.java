@@ -17,6 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -51,6 +55,8 @@ import java.util.TimeZone;
 
 public class AudioPlaybackFragment extends Fragment {
 
+    private ArrayList<String[]> audioContentsCsv;
+
     public static final String Broadcast_PLAY_NEW_AUDIO = "com.citex.twelve_step_recovery.ui.audio.PlayNewAudio";
 
     public static MediaPlayerService player;
@@ -77,7 +83,7 @@ public class AudioPlaybackFragment extends Fragment {
                 mActionBar.setDisplayShowHomeEnabled(true);
                 mActionBar.setDisplayShowCustomEnabled(false);
                 if(getArguments() != null)
-                    mActionBar.setTitle("  " + getArguments().getString("audioTitle"));
+                    mActionBar.setTitle("  " + getArguments().getString("audioAlbum"));
             }
         }
 
@@ -86,9 +92,50 @@ public class AudioPlaybackFragment extends Fragment {
         View root = binding.getRoot();
         container.removeAllViews();
 
+        // Read audio book contents csv.
+        try {
+            AssetManager assetManager = getActivity().getAssets();
+            InputStream csvInputStream = assetManager.open("audio/" + getArguments().getString("audioContentsFilename"));
+            RFC4180ParserBuilder rfc4180ParserBuilder = new RFC4180ParserBuilder();
+            ICSVParser rfc4180Parser = rfc4180ParserBuilder.build();
+            CSVReader reader = new CSVReaderBuilder(new InputStreamReader(csvInputStream))
+                    .withFieldAsNull(CSVReaderNullFieldIndicator.EMPTY_SEPARATORS)
+                    .withSkipLines(1)
+                    .withCSVParser(rfc4180Parser)
+                    .build();
+            String[] nextLine;
+
+            while ((nextLine = reader.readNext()) != null) {
+                audioContentsCsv.add(nextLine);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        String soundCloudMp3Url = getSoundCloudMp3Url(audioContentsCsv.get(getArguments().getInt("audioFileIndex"))[5]);
+
         return root;
     }
 
+    public String getSoundCloudMp3Url(String url) {
+
+        WebView webView = getView().findViewById(R.id.webview_soundcloud);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                // Check if the request is for a specific resource
+                if (request.getUrl().getPath().startsWith("https://w.soundcloud.com/player/")) {
+
+                    String soundCloudPage = request.getUrl().toString();
+
+                }
+                return super.shouldInterceptRequest(view, request);
+            }
+        });
+        webView.loadUrl(url);
+
+        return null;
+    }
 
     @Override
     public void onResume() {
@@ -113,7 +160,7 @@ public class AudioPlaybackFragment extends Fragment {
         if(getActivity() != null) {
             FloatingActionButton actionButtonPlay = view.findViewById(R.id.action_button_play);
             actionButtonPlay.setOnClickListener(view13 -> {
-                playAudio(0);
+                //playAudio(0);
             });
         }
     }
@@ -125,12 +172,12 @@ public class AudioPlaybackFragment extends Fragment {
     private void playAudio(int audioIndex) {
 
 
+        /*
         StorageUtil storage = new StorageUtil(getContext().getApplicationContext());
 
         // Check is service is active.
         if (!serviceBound) {
 
-            // Store CSV audio list to SharedPreferences.
             storage.storeAudioFilename(getArguments().getString("audioContentsFilename"));
             storage.storeAudioIndex(audioIndex);
 
@@ -146,12 +193,13 @@ public class AudioPlaybackFragment extends Fragment {
             // Send a broadcast to the service -> PLAY_NEW_AUDIO.
             Intent broadcastIntent = new Intent(Broadcast_PLAY_NEW_AUDIO);
             getContext().sendBroadcast(broadcastIntent);
-        }
+        }*/
     }
 
     /**
      * Binding this Client to the AudioPlayer Service.
      */
+    /*
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -165,5 +213,5 @@ public class AudioPlaybackFragment extends Fragment {
         public void onServiceDisconnected(ComponentName name) {
             serviceBound = false;
         }
-    };
+    };*/
 }

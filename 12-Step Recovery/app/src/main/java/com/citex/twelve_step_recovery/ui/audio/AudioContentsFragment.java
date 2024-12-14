@@ -33,8 +33,6 @@ import java.util.ArrayList;
 
 public class AudioContentsFragment extends Fragment implements RecyclerViewAdapter.ItemClickListener {
 
-    private ArrayList<String[]> audioContentsCsv;
-
     private static final String TAG = AudioContentsFragment.class.getName();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,9 +61,8 @@ public class AudioContentsFragment extends Fragment implements RecyclerViewAdapt
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
         ArrayList<String> audio = new ArrayList<>();
-        audioContentsCsv = new ArrayList<>();
 
-        // Read prayers.csv.
+        // Read audio book contents csv.
         try {
             AssetManager assetManager = getActivity().getAssets();
             InputStream csvInputStream = assetManager.open("audio/" + getArguments().getString("audioContentsFilename"));
@@ -80,7 +77,6 @@ public class AudioContentsFragment extends Fragment implements RecyclerViewAdapt
 
             while ((nextLine = reader.readNext()) != null) {
                 audio.add(nextLine[3]);
-                audioContentsCsv.add(nextLine);
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -113,28 +109,15 @@ public class AudioContentsFragment extends Fragment implements RecyclerViewAdapt
     @Override
     public void onItemClick(View view, int position) {
 
-        // Find prayer in array list.
-        String[] audioContents = null;
-        for(int i = 0; i < audioContentsCsv.size(); i++) {
-            if(i == position)
-                audioContents = audioContentsCsv.get(i);
-        }
-
         if(getActivity() != null) {
 
-            // Add prayer reading to fragment arguments.
-            if(audioContents != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("audioContentsFilename", getArguments().getString("audioContentsFilename"));
+            bundle.putInt("audioFileIndex", position);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("audioTitle", getArguments().getString("audioTitle"));
-                bundle.putString("audioContentsFilename", getArguments().getString("audioContentsFilename"));
-                bundle.putString("audioImage", getArguments().getString("audioImage"));
-                bundle.putInt("audioFileIndex", position);
-
-                // Display PrayerReadingFragment.
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
-                navController.navigate(R.id.action_navigation_audio_contents_to_navigation_audio_playback, bundle);
-            }
+            // Display PrayerReadingFragment.
+            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.action_navigation_audio_contents_to_navigation_audio_playback, bundle);
         }
     }
 

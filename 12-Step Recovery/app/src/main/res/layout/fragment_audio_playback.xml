@@ -108,6 +108,14 @@
             tools:ignore="SpUsage"
             app:drawableStartCompat="@drawable/ic_share_24dp" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <WebView
+        android:id="@+id/webview_soundcloud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:scrollbarAlwaysDrawVerticalTrack="true" />
 
 </ScrollView>
