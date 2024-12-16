@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -28,13 +30,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.citex.twelve_step_recovery.MainActivity;
 import com.citex.twelve_step_recovery.R;
 import com.citex.twelve_step_recovery.database.DbHelper;
 import com.citex.twelve_step_recovery.databinding.FragmentAudioPlaybackBinding;
+import com.citex.twelve_step_recovery.ui.home.daily_reflection.DailyReflectionModel;
 import com.google.android.gms.common.util.IOUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.opencsv.CSVReader;
@@ -42,6 +53,8 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.ICSVParser;
 import com.opencsv.RFC4180ParserBuilder;
 import com.opencsv.enums.CSVReaderNullFieldIndicator;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +64,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class AudioPlaybackFragment extends Fragment {
@@ -58,6 +72,8 @@ public class AudioPlaybackFragment extends Fragment {
     private ArrayList<String[]> audioContentsCsv;
 
     public static final String Broadcast_PLAY_NEW_AUDIO = "com.citex.twelve_step_recovery.ui.audio.PlayNewAudio";
+
+    private WebView webview;
 
     public static MediaPlayerService player;
     boolean serviceBound = false;
@@ -92,6 +108,8 @@ public class AudioPlaybackFragment extends Fragment {
         View root = binding.getRoot();
         container.removeAllViews();
 
+        audioContentsCsv = new ArrayList<>();
+
         // Read audio book contents csv.
         try {
             AssetManager assetManager = getActivity().getAssets();
@@ -112,27 +130,54 @@ public class AudioPlaybackFragment extends Fragment {
             Log.e(TAG, Log.getStackTraceString(e));
         }
 
-        String soundCloudMp3Url = getSoundCloudMp3Url(audioContentsCsv.get(getArguments().getInt("audioFileIndex"))[5]);
-
         return root;
     }
 
     public String getSoundCloudMp3Url(String url) {
 
-        WebView webView = getView().findViewById(R.id.webview_soundcloud);
-        webView.setWebViewClient(new WebViewClient() {
+        webview.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+
                 // Check if the request is for a specific resource
-                if (request.getUrl().getPath().startsWith("https://w.soundcloud.com/player/")) {
+                if (request.getUrl().toString().startsWith("https://api-widget.soundcloud.com/resolve")) {
 
-                    String soundCloudPage = request.getUrl().toString();
+                    Object ob = getActivity();
 
+                    // Get SoundCloud API request.
+                    String soundCloudApiUrl = request.getUrl().toString();
+
+                    // Instantiate the RequestQueue.
+                    RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+                    // Request SoundCloud API for authorization URL
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                            (Request.Method.GET, soundCloudApiUrl, null, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        String streamUri = response.getString("uri");
+                                    }
+                                    catch(Exception e) {
+
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // TODO: Handle error
+
+                                }
+                            });
+
+                    // Add the request to the RequestQueue.
+                    queue.add(jsonObjectRequest );
                 }
                 return super.shouldInterceptRequest(view, request);
             }
         });
-        webView.loadUrl(url);
+        webview.loadUrl(url);
+
 
         return null;
     }
@@ -156,6 +201,13 @@ public class AudioPlaybackFragment extends Fragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        webview = view.findViewById(R.id.webview_soundcloud);
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+
+        String soundCloudMp3Url = getSoundCloudMp3Url(audioContentsCsv.get(getArguments().getInt("audioFileIndex"))[5]);
 
         if(getActivity() != null) {
             FloatingActionButton actionButtonPlay = view.findViewById(R.id.action_button_play);

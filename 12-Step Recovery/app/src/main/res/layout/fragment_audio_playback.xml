@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/image_audio_cover"
@@ -109,13 +109,13 @@
             app:drawableStartCompat="@drawable/ic_share_24dp" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <WebView
+            android:id="@+id/webview_soundcloud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:scrollbarAlwaysDrawVerticalTrack="true" />
 
-    <WebView
-        android:id="@+id/webview_soundcloud"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:scrollbarAlwaysDrawVerticalTrack="true" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
