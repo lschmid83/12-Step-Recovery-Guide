@@ -54,6 +54,7 @@ import com.opencsv.ICSVParser;
 import com.opencsv.RFC4180ParserBuilder;
 import com.opencsv.enums.CSVReaderNullFieldIndicator;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -133,55 +134,6 @@ public class AudioPlaybackFragment extends Fragment {
         return root;
     }
 
-    public String getSoundCloudMp3Url(String url) {
-
-        webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-
-                // Check if the request is for a specific resource
-                if (request.getUrl().toString().startsWith("https://api-widget.soundcloud.com/resolve")) {
-
-                    Object ob = getActivity();
-
-                    // Get SoundCloud API request.
-                    String soundCloudApiUrl = request.getUrl().toString();
-
-                    // Instantiate the RequestQueue.
-                    RequestQueue queue = Volley.newRequestQueue(getActivity());
-
-                    // Request SoundCloud API for authorization URL
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                            (Request.Method.GET, soundCloudApiUrl, null, new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        String streamUri = response.getString("uri");
-                                    }
-                                    catch(Exception e) {
-
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // TODO: Handle error
-
-                                }
-                            });
-
-                    // Add the request to the RequestQueue.
-                    queue.add(jsonObjectRequest );
-                }
-                return super.shouldInterceptRequest(view, request);
-            }
-        });
-        webview.loadUrl(url);
-
-
-        return null;
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -206,15 +158,84 @@ public class AudioPlaybackFragment extends Fragment {
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
-        String soundCloudMp3Url = getSoundCloudMp3Url(audioContentsCsv.get(getArguments().getInt("audioFileIndex"))[5]);
+                // Check if the request is for a specific resource
+                if (request.getUrl().toString().startsWith("https://api-widget.soundcloud.com/resolve")) {
 
-        if(getActivity() != null) {
-            FloatingActionButton actionButtonPlay = view.findViewById(R.id.action_button_play);
-            actionButtonPlay.setOnClickListener(view13 -> {
-                //playAudio(0);
-            });
-        }
+                    Object ob = getActivity();
+
+                    // Get SoundCloud API request.
+                    String soundCloudApiUrl = request.getUrl().toString();
+
+                    // Instantiate the RequestQueue.
+                    RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+                    // Request SoundCloud API for authorization URL
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                            (Request.Method.GET, soundCloudApiUrl, null, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+
+                                        JSONArray transcoding = response.getJSONObject("media").getJSONArray("transcodings");
+                                        String transcodingUrl = transcoding.getJSONObject(1).getString("url");
+                                        transcodingUrl = transcodingUrl + "&format=json&client_id=gqKBMSuBw5rbN9rDRYPqKNvF17ovlObu&app_version=1732876988";
+
+                                        // Instantiate the RequestQueue.
+                                        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+                                        // Request SoundCloud API for mp3 URL
+                                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                                                (Request.Method.GET, transcodingUrl, null, new Response.Listener<JSONObject>() {
+                                                    @Override
+                                                    public void onResponse(JSONObject response) {
+                                                        try {
+                                                            String soundCloudMp3Url = response.getString("url");
+
+                                                            /*
+                                                            if(getActivity() != null) {
+                                                                FloatingActionButton actionButtonPlay = view.findViewById(R.id.action_button_play);
+                                                                actionButtonPlay.setOnClickListener(view13 -> {
+                                                                    //playAudio(0);
+                                                                });
+                                                            }*/
+                                                        }
+                                                        catch(Exception e) {
+                                                        }
+                                                    }
+                                                }, new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+                                                    }
+                                                });
+
+                                        // Add the request to the RequestQueue.
+                                        queue.add(jsonObjectRequest );
+
+
+                                    }
+                                    catch(Exception e) {
+
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // TODO: Handle error
+                                }
+                            });
+
+                    // Add the request to the RequestQueue.
+                    queue.add(jsonObjectRequest );
+                }
+                return super.shouldInterceptRequest(view, request);
+            }
+        });
+        String contentsUrl = audioContentsCsv.get(getArguments().getInt("audioFileIndex"))[5];
+        webview.loadUrl(contentsUrl);
     }
 
     /**
