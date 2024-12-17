@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">12-Step Recovery Guide</string>
+    <string name="app_name">12-Step Meeting Finder and Recovery Guide</string>
     <string name="app_website">www.recoverymeetingfinder.com</string>
     <string name="home">Home</string>
     <string name="meetings">Meetings</string>
@@ -9,6 +9,7 @@
     <string name="program">Program</string>
     <string name="more">More</string>
     <string name="daily_reflection">Daily Reflection</string>
+    <string name="daily_reflection_copyright">From the book Daily Reflections. Copyright © 1990 Alcoholics Anonymous World Services, Inc. All rights reserved.</string>
     <string name="sobriety_date">Sobriety Date</string>
     <string name="days">Days</string>
     <string name="step">Step</string>

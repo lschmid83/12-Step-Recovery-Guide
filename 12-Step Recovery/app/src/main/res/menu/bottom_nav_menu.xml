@@ -11,10 +11,10 @@
         android:icon="@drawable/ic_meeting_room_24dp"
         android:title="@string/meetings" />
 
-    <item
+    <!--<item
         android:id="@+id/navigation_audio"
         android:icon="@drawable/ic_headphones_24dp"
-        android:title="@string/audio" />
+        android:title="@string/audio" />-->
 
     <!--<item
         android:id="@+id/navigation_program"

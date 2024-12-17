@@ -159,7 +159,7 @@ public class DailyReflectionFragment extends Fragment {
                             dailyReflectionViewModel.setHeaderContent(Html.fromHtml(dailyReflectionModel.HeaderContent).toString());
                             dailyReflectionViewModel.setContentTitle(Html.fromHtml(dailyReflectionModel.ContentTitle).toString());
                             dailyReflectionViewModel.setContent(Html.fromHtml(dailyReflectionModel.Content).toString());
-                            dailyReflectionViewModel.setCopyright(Html.fromHtml(dailyReflectionModel.Copyright).toString());
+                            //dailyReflectionViewModel.setCopyright(Html.fromHtml(dailyReflectionModel.Copyright).toString());
 
                             // Find daily reflection layout.
                             ConstraintLayout dailyReflectionLayout;
@@ -255,12 +255,12 @@ public class DailyReflectionFragment extends Fragment {
         }
 
         dailyReflectionModel.Content = contentFull.toString().trim();
-        dailyReflectionModel.Copyright = doc.getElementsByClass("copyright-block").text();
+        //dailyReflectionModel.Copyright = doc.getElementsByClass("copyright-block").text();
 
         // Through ResourceUnavailableException if data is missing.
         if(TextUtils.isEmpty(dailyReflectionModel.Date) || TextUtils.isEmpty(dailyReflectionModel.HeaderTitle) ||
                 TextUtils.isEmpty(dailyReflectionModel.HeaderContent) || TextUtils.isEmpty(dailyReflectionModel.ContentTitle) ||
-                TextUtils.isEmpty(dailyReflectionModel.Content) || TextUtils.isEmpty(dailyReflectionModel.Copyright)) {
+                TextUtils.isEmpty(dailyReflectionModel.Content)) { //|| TextUtils.isEmpty(dailyReflectionModel.Copyright)) {
             throw new ResourceUnavailableException();
         }
 
