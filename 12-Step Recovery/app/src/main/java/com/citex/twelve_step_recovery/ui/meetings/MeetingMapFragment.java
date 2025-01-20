@@ -57,8 +57,6 @@ public class MeetingMapFragment extends Fragment {
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
                     loadSearchResultsWithGpsLocation();
-                } else {
-                    loadMapWithoutGpsLocation();
                 }
             });
 
@@ -168,8 +166,6 @@ public class MeetingMapFragment extends Fragment {
             else {
                 if (locationPermission) {
                     loadSearchResultsWithGpsLocation();
-                } else {
-                    loadMapWithoutGpsLocation();
                 }
             }
         });
@@ -189,8 +185,6 @@ public class MeetingMapFragment extends Fragment {
                 else {
                     if (locationPermission) {
                         loadSearchResultsWithGpsLocation();
-                    } else {
-                        loadMapWithoutGpsLocation();
                     }
                 }
                 return true;
