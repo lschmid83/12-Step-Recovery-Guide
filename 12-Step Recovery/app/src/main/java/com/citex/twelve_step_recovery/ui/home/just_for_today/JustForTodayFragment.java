@@ -56,7 +56,7 @@ public class JustForTodayFragment extends Fragment {
                 mActionBar.setDisplayUseLogoEnabled(true);
                 mActionBar.setDisplayShowHomeEnabled(true);
                 mActionBar.setDisplayShowCustomEnabled(false);
-                mActionBar.setTitle("  " + getResources().getString(R.string.daily_reflection));
+                mActionBar.setTitle("  " + getResources().getString(R.string.just_for_today));
             }
         }
 

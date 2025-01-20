@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".ui.home.daily_reflection.DailyReflectionFragment">
+    tools:context=".ui.home.just_for_today.JustForTodayFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
