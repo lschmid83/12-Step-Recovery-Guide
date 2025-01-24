@@ -210,6 +210,7 @@ public class MeetingMapFragment extends Fragment {
 
         // Load webpage.
         webview.clearView();
+        webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webview.loadUrl("https://www.recoverymeetingfinder.com/mobile-map");
     }
 
@@ -244,6 +245,7 @@ public class MeetingMapFragment extends Fragment {
                         component = "mobile-map";
 
                     // Load webpage.
+                    webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                     webview.loadUrl("https://www.recoverymeetingfinder.com/" + component + "?" + "" +
                             "type=" + filterDetails.Program +
                             "&region=all" +
@@ -274,6 +276,7 @@ public class MeetingMapFragment extends Fragment {
             component = "mobile-map";
 
         // Load webpage.
+        webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webview.loadUrl("https://www.recoverymeetingfinder.com/" + component + "?" + "" +
                 "type=" + filterDetails.Program +
                 "&region=all" +
@@ -403,9 +406,9 @@ public class MeetingMapFragment extends Fragment {
         }
         @Override
         public void onPageFinished(WebView view, String url) {
-             progressBar.setVisibility(View.GONE);
-             webview.setVisibility(View.VISIBLE);
-             super.onPageFinished(view, url);
+            progressBar.setVisibility(View.GONE);
+            webview.setVisibility(View.VISIBLE);
+            super.onPageFinished(view, url);
         }
     }
 }
