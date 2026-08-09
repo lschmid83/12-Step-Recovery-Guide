@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.citex.twelve_step_recovery.ui.audio.AudioDbContract;
+
 import com.citex.twelve_step_recovery.ui.home.HomeDbContract;
 import com.citex.twelve_step_recovery.ui.meetings.MeetingFilterDbContract;
 import com.opencsv.CSVReader;
@@ -38,7 +38,6 @@ public class DbHelper extends SQLiteOpenHelper {
         // Create tables.
         db.execSQL(HomeDbContract.HomeEntry.SQL_CREATE_ENTRIES);
         db.execSQL(MeetingFilterDbContract.MeetingFilterEntry.SQL_CREATE_ENTRIES);
-        db.execSQL(AudioDbContract.AudioEntry.SQL_CREATE_ENTRIES);
 
         // Insert initial rows tables.
         Calendar calendarToday = Calendar.getInstance();
@@ -79,41 +78,12 @@ public class DbHelper extends SQLiteOpenHelper {
                 "'Miles'," +
                 0 + ")");
 
-        // Read audio filenames and insert rows.
-        int index = 1;
-        try {
-            AssetManager assetManager = context.getAssets();
-            InputStream csvInputStream = assetManager.open("audio.csv");
-            CSVReader reader = new CSVReaderBuilder(new InputStreamReader(csvInputStream))
-                    .withFieldAsNull(CSVReaderNullFieldIndicator.EMPTY_SEPARATORS)
-                    .withSkipLines(1)
-                    .build();
-            String[] nextLine;
-
-            while ((nextLine = reader.readNext()) != null) {
-
-                db.execSQL("insert into " + AudioDbContract.AudioEntry.TABLE_NAME + "(" +
-                        AudioDbContract.AudioEntry._ID + "," +
-                        AudioDbContract.AudioEntry.COLUMN_NAME_FILENAME + "," +
-                        AudioDbContract.AudioEntry.COLUMN_NAME_FILE_INDEX + "," +
-                        AudioDbContract.AudioEntry.COLUMN_NAME_PROGRESS + ") " +
-                        "values(" +
-                        index + "," +
-                        "'" + nextLine[2] + "'" + "," +
-                        1 + "," +
-                        0 +  ")");
-                index++;
-            }
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         db.execSQL(HomeDbContract.HomeEntry.SQL_DELETE_ENTRIES);
         db.execSQL(MeetingFilterDbContract.MeetingFilterEntry.SQL_DELETE_ENTRIES);
-        db.execSQL(AudioDbContract.AudioEntry.SQL_DELETE_ENTRIES);
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
