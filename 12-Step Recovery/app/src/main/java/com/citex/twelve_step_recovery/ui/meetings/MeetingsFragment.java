@@ -31,7 +31,7 @@ public class MeetingsFragment extends Fragment {
     private FragmentMeetingsBinding binding;
     private DbHelper dbHelper;
     private String countryCode;
-    private String[] tabs = new String[] {"Map", "London", "Worldwide"};
+    private String[] tabs = new String[] {"Map", "London" };//, "Worldwide"};
     private MeetingMapFragment meetingMapFragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,9 +46,10 @@ public class MeetingsFragment extends Fragment {
         countryCode = getCountryCodeDb();
 
         // If not GB only show Worldwide tab.
+        /*
         if(!countryCode.equals("GB")) {
             tabs = new String[] {"Worldwide"};
-        }
+        }*/
 
         // Setup View Binding.
         binding = FragmentMeetingsBinding.inflate(inflater, container, false);
