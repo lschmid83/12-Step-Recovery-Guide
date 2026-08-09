@@ -117,7 +117,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_filter_ca_label"/>
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/image_filter_oa_marker_label"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -146,7 +146,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginTop="17dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_filter_na_label"/>
+            app:layout_constraintTop_toBottomOf="@id/text_filter_na_label"/>-->
 
         <TextView
             android:id="@+id/text_filter_program_line_break"
@@ -162,7 +162,7 @@
             android:background="@drawable/textview_underline"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_filter_oa_label" />
+            app:layout_constraintTop_toBottomOf="@id/text_filter_na_label" />
 
         <TextView
             android:id="@+id/text_filter_time_label"

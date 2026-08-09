@@ -93,8 +93,8 @@ public class MeetingFilterFragment extends Fragment {
         int switchOaDbValue = meetingFilter.getProgramDb(MeetingFilterDbContract.MeetingFilterEntry.COLUMN_NAME_OA);
         meetingMapFilterViewModel.setProgramOA(switchOaDbValue != 0);
 
-        final SwitchCompat oaFilter = binding.switchFilterOa;
-        meetingMapFilterViewModel.getProgramOA().observe(getViewLifecycleOwner(), oaFilter::setChecked);
+        //final SwitchCompat oaFilter = binding.switchFilterOa;
+        //meetingMapFilterViewModel.getProgramOA().observe(getViewLifecycleOwner(), oaFilter::setChecked);
 
         // Get weekday value from database.
         int textWeekdayDbValue = meetingFilter.getWeekdayDb();
@@ -162,11 +162,12 @@ public class MeetingFilterFragment extends Fragment {
         });
 
         // OA program switch.
+        /*
         SwitchCompat switchOA = view.findViewById(R.id.switch_filter_oa);
         switchOA.setOnCheckedChangeListener((buttonView, isChecked) -> {
             meetingFilter.setProgramDb(MeetingFilterDbContract.MeetingFilterEntry.COLUMN_NAME_OA, isChecked);
             meetingMapFilterViewModel.setProgramOA(isChecked);
-        });
+        });*/
 
         // Display weekday number picker on click.
         TextView textFilterWeekday = view.findViewById(R.id.text_filter_weekday);
