@@ -59,7 +59,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.opencsv:opencsv:4.6'
-    implementation 'io.github.ahmerafzal1:ahmer-pdfviewer:2.0.1'
+    implementation 'com.github.mhiew:android-pdf-viewer:3.2.0-beta.3'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'jp.wasabeef:picasso-transformations:2.4.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'

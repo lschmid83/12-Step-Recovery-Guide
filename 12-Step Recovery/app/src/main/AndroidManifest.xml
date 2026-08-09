@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.RecoveryMeetingFinder">
-        <service android:name=".ui.audio.MediaPlayerService" />
+
         <activity
             android:name="com.citex.twelve_step_recovery.SplashScreenActivity"
             android:exported="true"
