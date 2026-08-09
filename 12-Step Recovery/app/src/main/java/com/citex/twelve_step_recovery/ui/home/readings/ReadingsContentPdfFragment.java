@@ -14,12 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
+import com.alamin5g.pdf.listener.OnErrorListener;
 import com.citex.twelve_step_recovery.MainActivity;
 import com.citex.twelve_step_recovery.R;
 import com.citex.twelve_step_recovery.databinding.FragmentReadingsContentPdfBinding;
-import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnErrorListener;
-import com.github.barteksc.pdfviewer.util.FitPolicy;
+import com.alamin5g.pdf.PDFView;
+import com.alamin5g.pdf.listener.OnLoadCompleteListener;
 
 import androidx.fragment.app.Fragment;
 import java.io.BufferedInputStream;
@@ -124,6 +124,7 @@ public class ReadingsContentPdfFragment extends Fragment {
 
             // Open file in PDF viewer.
             PDFView pdfView;
+
             pdfView = mainView.findViewById(R.id.pdfView_reading_content);
             pdfView.fromFile(file)
                     .onError(new OnErrorListener() {
@@ -135,9 +136,7 @@ public class ReadingsContentPdfFragment extends Fragment {
                         }
                     })
                     .pages(getArguments().getIntArray("pages"))
-                    .defaultPage(getArguments().getInt("pageOffset"))
-                    .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
-                    .fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
+                    .defaultPage(getArguments().getInt("pageOffset")).fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
                     .pageSnap(true) // snap pages to screen boundaries
                     .load();
 
