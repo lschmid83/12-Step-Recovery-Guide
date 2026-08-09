@@ -9,7 +9,7 @@
         <item name="drawableTint">@color/white_alpha_60</item>
         <item name="shareButtonColor">@color/dark_grey</item>
         <item name="md_content_color">@color/white</item>
-        <item name="colorAccent">@color/dark_blue</item>
+        <item name="colorAccent">@color/white</item>
         <item name="actionButtonColor">@color/dark_blue</item>
         <item name="actionButtonIconColor">@color/white</item>
         <item name="android:textColorHint">#666666</item>

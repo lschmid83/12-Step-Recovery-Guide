@@ -219,6 +219,7 @@ public class HomeFragment extends Fragment {
         });
 
         // Display ThoughtForTheDayFragment.
+        /*
         TextView textThoughtForTheDay;
         textThoughtForTheDay = view.findViewById(R.id.text_thought_for_the_day);
         textThoughtForTheDay.setOnClickListener(v -> {
@@ -226,7 +227,7 @@ public class HomeFragment extends Fragment {
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
                 navController.navigate(R.id.action_navigation_home_to_navigation_thought_for_the_day);
             }
-        });
+        });*/
 
         // Display PrayersFragment.
         TextView textPrayers;

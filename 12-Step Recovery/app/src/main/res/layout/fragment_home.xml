@@ -141,7 +141,7 @@
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_step_description" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/text_thought_for_the_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
             android:textSize="18sp"
             app:drawableLeftCompat="@drawable/ic_bubble_24dp"
             app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_daily_reflection" />
+            app:layout_constraintTop_toBottomOf="@id/text_daily_reflection" />-->
 
         <TextView
             android:id="@+id/text_just_for_today"
@@ -172,7 +172,7 @@
             android:textSize="18sp"
             app:drawableLeftCompat="@drawable/ic_today_24dp"
             app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_thought_for_the_day" />
+            app:layout_constraintTop_toBottomOf="@id/text_daily_reflection" />
 
         <TextView
             android:id="@+id/text_readings"
@@ -265,7 +265,6 @@
             android:background="@null"
             android:inputType="none"
             android:textSize="16sp"
-            android:textColor="@color/dark_blue"
             android:autoLink="web"
             android:linksClickable="true"
             app:layout_constraintEnd_toStartOf="parent"
@@ -282,7 +281,6 @@
             android:background="@null"
             android:inputType="none"
             android:textSize="16sp"
-            android:textColor="@color/dark_blue"
             android:autoLink="web"
             android:linksClickable="true"
             app:layout_constraintEnd_toStartOf="parent"
@@ -299,7 +297,6 @@
             android:background="@null"
             android:inputType="none"
             android:textSize="16sp"
-            android:textColor="@color/dark_blue"
             android:autoLink="web"
             android:linksClickable="true"
             app:layout_constraintEnd_toStartOf="parent"
@@ -316,7 +313,6 @@
             android:background="@null"
             android:inputType="none"
             android:textSize="16sp"
-            android:textColor="@color/dark_blue"
             android:autoLink="web"
             android:linksClickable="true"
             app:layout_constraintEnd_toStartOf="parent"
