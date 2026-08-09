@@ -13,19 +13,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+
+import com.ahmer.pdfviewer.PDFView;
+import com.ahmer.pdfviewer.listener.OnErrorListener;
+import com.ahmer.pdfviewer.util.FitPolicy;
 import com.citex.twelve_step_recovery.MainActivity;
 import com.citex.twelve_step_recovery.R;
-
 import com.citex.twelve_step_recovery.databinding.FragmentReadingsContentPdfBinding;
-import com.citex.twelve_step_recovery.exceptions.ResourceUnavailableException;
-import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnErrorListener;
-import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
-import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
-import com.github.barteksc.pdfviewer.util.FitPolicy;
-
 import androidx.fragment.app.Fragment;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -127,8 +122,7 @@ public class ReadingsContentPdfFragment extends Fragment {
             mainView.findViewById(R.id.pdfView_reading_content).setVisibility(View.VISIBLE);
 
             // Open file in PDF viewer.
-            PDFView pdfView;
-            pdfView = mainView.findViewById(R.id.pdfView_reading_content);
+            PDFView pdfView = mainView.findViewById(R.id.pdfView_reading_content);
             pdfView.fromFile(file)
                     .onError(new OnErrorListener() {
                         @Override
