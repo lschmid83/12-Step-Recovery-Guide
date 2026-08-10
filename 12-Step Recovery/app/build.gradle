@@ -65,11 +65,20 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.opencsv:opencsv:4.6'
-    implementation 'io.github.ahmerafzal1:ahmer-pdfviewer:2.0.1'
+    implementation 'com.github.marain87:AndroidPdfViewer:3.2.8'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'jp.wasabeef:picasso-transformations:2.4.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
     implementation group: 'com.afollestad.material-dialogs', name: 'commons', version: '0.9.6.0'
     implementation 'androidx.media:media:1.1.0'
     implementation "androidx.core:core-splashscreen:1.0.0"
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
+
 }
