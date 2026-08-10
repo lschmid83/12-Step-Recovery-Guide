@@ -16,6 +16,7 @@ import androidx.appcompat.app.ActionBar;
 
 import com.ahmer.pdfviewer.PDFView;
 import com.ahmer.pdfviewer.listener.OnErrorListener;
+import com.ahmer.pdfviewer.util.FitPolicy;
 import com.citex.twelve_step_recovery.MainActivity;
 import com.citex.twelve_step_recovery.R;
 import com.citex.twelve_step_recovery.databinding.FragmentReadingsContentPdfBinding;
@@ -134,11 +135,22 @@ public class ReadingsContentPdfFragment extends Fragment {
 
                         }
                     })
-                    .pages(getArguments().getIntArray("pages"))
-                    .defaultPage(getArguments().getInt("pageOffset")).fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
+                    .enableSwipe(true) // allows to block changing pages using swipe
+                    .swipeHorizontal(false)
+                    //.pages(getArguments().getIntArray("pages"))
+                    //.defaultPage(getArguments().getInt("pageOffset"))
+                    .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
+                    .password(null)
+                    .scrollHandle(null)
+                    .enableAntialiasing(true) // improve rendering a little bit on low-res screens
+                    .spacing(0) // spacing between pages in dp. To define spacing color, set view background
+                    .autoSpacing(false) // add dynamic spacing to fit each page on its own on the screen
+                    .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
+                    .fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
+                    .nightMode(false) // toggle night mode
                     .pageSnap(true) // snap pages to screen boundaries
+                    .pageFling(false) // make a fling change only a single page like ViewPager
                     .load();
-
 
 
         }
