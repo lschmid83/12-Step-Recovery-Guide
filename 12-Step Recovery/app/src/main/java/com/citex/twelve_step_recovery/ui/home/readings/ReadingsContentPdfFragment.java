@@ -14,12 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
-import com.alamin5g.pdf.listener.OnErrorListener;
+import com.ahmer.pdfviewer.PDFView;
+import com.ahmer.pdfviewer.listener.OnErrorListener;
 import com.citex.twelve_step_recovery.MainActivity;
 import com.citex.twelve_step_recovery.R;
 import com.citex.twelve_step_recovery.databinding.FragmentReadingsContentPdfBinding;
-import com.alamin5g.pdf.PDFView;
-import com.alamin5g.pdf.listener.OnLoadCompleteListener;
+
 
 import androidx.fragment.app.Fragment;
 import java.io.BufferedInputStream;
@@ -123,9 +123,8 @@ public class ReadingsContentPdfFragment extends Fragment {
             mainView.findViewById(R.id.pdfView_reading_content).setVisibility(View.VISIBLE);
 
             // Open file in PDF viewer.
-            PDFView pdfView;
 
-            pdfView = mainView.findViewById(R.id.pdfView_reading_content);
+            PDFView pdfView = mainView.findViewById(R.id.pdfView_reading_content);
             pdfView.fromFile(file)
                     .onError(new OnErrorListener() {
                         @Override
