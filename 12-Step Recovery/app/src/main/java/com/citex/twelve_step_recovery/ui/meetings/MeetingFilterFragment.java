@@ -45,6 +45,8 @@ public class MeetingFilterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        getContext().getTheme().applyStyle(R.style.Theme_RecoveryMeetingFinder, true);
+
         // Initialize database.
         meetingFilter = new MeetingFilter(getContext());
         loaded = true;

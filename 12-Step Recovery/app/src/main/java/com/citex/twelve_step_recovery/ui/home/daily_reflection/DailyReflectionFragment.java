@@ -159,7 +159,7 @@ public class DailyReflectionFragment extends Fragment {
                             dailyReflectionViewModel.setHeaderContent(Html.fromHtml(dailyReflectionModel.HeaderContent).toString());
                             dailyReflectionViewModel.setContentTitle(Html.fromHtml(dailyReflectionModel.ContentTitle).toString());
                             dailyReflectionViewModel.setContent(Html.fromHtml(dailyReflectionModel.Content).toString());
-                            //dailyReflectionViewModel.setCopyright(Html.fromHtml(dailyReflectionModel.Copyright).toString());
+                            dailyReflectionViewModel.setCopyright("From the book Daily Reflections. Copyright © 1990 Alcoholics Anonymous World Services, Inc. All rights reserved.");
 
                             // Find daily reflection layout.
                             ConstraintLayout dailyReflectionLayout;
