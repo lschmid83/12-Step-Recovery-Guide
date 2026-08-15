@@ -9,8 +9,8 @@ android {
         applicationId "com.citex.twelve_step_recovery"
         minSdk 31
         targetSdk 34
-        versionCode 62
-        versionName "19.0"
+        versionCode 63
+        versionName "20.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
