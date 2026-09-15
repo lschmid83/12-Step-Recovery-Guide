@@ -7,10 +7,10 @@ android {
 
     defaultConfig {
         applicationId "com.citex.twelve_step_recovery"
-        minSdk 31
-        targetSdk 34
-        versionCode 65
-        versionName "22.0"
+        minSdk 26
+        targetSdk 36
+        versionCode 68
+        versionName "25.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
